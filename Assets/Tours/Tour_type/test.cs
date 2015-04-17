@@ -16,7 +16,7 @@ public class test : MonoBehaviour {
 
     public void bonjour()
     {
-        Debug.Log("Quitter");
+        Debug.Log("bonjour");
     }
 
 }

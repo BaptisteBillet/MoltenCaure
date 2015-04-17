@@ -15,6 +15,6 @@ public class LoadNewScene : MonoBehaviour {
 
     public void LoadNextScene ()
     {
-        Application.LoadLevel("Test_Grille");
+        Application.LoadLevel("Game");
     }
 }

@@ -10,7 +10,7 @@ using System.Collections;
 public class Tir : MonoBehaviour {
 
     // La cible fournit par la Tour
-    public GameObject cible;
+    public GameObject cible; 
 
     // On accède au script de la cible
     private Ennemy cible_script;
@@ -23,12 +23,10 @@ public class Tir : MonoBehaviour {
 
     //L'accélération de la tour
     public float acceleration;
-
-    public bool aoe;
  
     void OnTriggerEnter(Collider touch)
     {
-
+        
         if (touch.gameObject == cible) //Si la chose que le projectile à touché est bien la cible
         {
 
@@ -38,18 +36,8 @@ public class Tir : MonoBehaviour {
             //On applique les dégâts à la cible
             cible_script.vie -= degats;
 
-            if (aoe == true)
-            {
-                Debug.Log("explosiiooooon");
-                //Add(SphereCollider);
-                //void OnTriggerEnter(Collider touch);
-                //cible_script.vie -= degats;
-            }
-
-            
             //Le tir se détruit à l'impact
             Destroy(this.gameObject);
-
         }
         
         //  /!\ Il faudra prog une alternative en cas d'aoe;

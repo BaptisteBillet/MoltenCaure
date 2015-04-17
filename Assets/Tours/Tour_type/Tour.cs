@@ -27,6 +27,9 @@ public class Tour : MonoBehaviour {
     //Si la tour envoi des tirs de zone (true) ou monocible (false)
     public bool aoe;
 
+    public string type;
+    public int level;
+
     void Start()
     {
         //On établi l'accès entre ce script et celui du GameObject prefab_Tir
@@ -75,7 +78,6 @@ public class Tour : MonoBehaviour {
                 if (file[0] != null)
                 {
                     prefab_tir_script = (Tir)prefab_tir.GetComponent(typeof(Tir));
-
 
                     //Le projectile vise l'ennemie numero 1 (en position zéro dans la liste)
                     prefab_tir_script.cible = file[0].gameObject;
