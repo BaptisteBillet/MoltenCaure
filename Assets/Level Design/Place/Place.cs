@@ -290,6 +290,23 @@ public class Place : MonoBehaviour {
                 {
                     menu = false;                    //On a fermé le menu
                     Destroy(Panel_place.gameObject); //On détruit l'object
+                    if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !menu)
+                    {
+                        if (menu == false && libre == true)   //... Et que cette chose est taggé comme une "place" ...
+                        {
+                            Canvas = GameObject.FindWithTag("Canvas");
+                            Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
+                            Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click
+
+                            //On affiche un menu
+                            Panel_place = Instantiate(Panel_place_libre) as GameObject; // On instancie l'objet Panel_Place
+                            Panel_place.transform.SetParent(MainCanvas.instance.transform, false); // L'instance de Panel_place devient l'enfant du Canvas
+                            Panel_place.transform.localPosition = this.gameObject.transform.position; // Le panel instancé prends les valeurs de position du gameObject touché
+                            Panel_place.transform.localScale = new Vector3(1, 1, 1);
+
+                            menu = true; //on a ouvert le menu
+                        }
+                    }
                 }
 
                 if (menu == true && hit.collider.gameObject != this.gameObject) //SI le menu est ouvert et que l'on a touché un object qui n'est pas celui là
@@ -300,6 +317,5 @@ public class Place : MonoBehaviour {
 
             }
         }
-
     }
 }

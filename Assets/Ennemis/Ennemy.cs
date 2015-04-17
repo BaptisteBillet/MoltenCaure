@@ -29,6 +29,7 @@ public class Ennemy : MonoBehaviour {
         //Si l'ennemi n'a plus de vie, on détruit l'objet
         if(vie<=0)
         {
+            RessourcesManager.ressourceX++;
             Destroy(this.gameObject);
         }
 

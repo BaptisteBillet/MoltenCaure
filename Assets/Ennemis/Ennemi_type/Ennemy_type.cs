@@ -10,10 +10,5 @@ public class Ennemy_type : Ennemy
     {
         speed = 5;
         vie = 100;
-
-        if (vie <= 0)
-        {
-            RessourcesManager.ressourceX++;
-        }
     }
 }
