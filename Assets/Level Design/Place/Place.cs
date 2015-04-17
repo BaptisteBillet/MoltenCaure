@@ -14,6 +14,8 @@ public class Place : MonoBehaviour {
     public GameObject Canvas;
     private MainCanvas Canvas_script;
 
+    public GameObject Panel_place_libre;
+
     //ANTO
 
     public Creation_script creation_script;
@@ -38,6 +40,7 @@ public class Place : MonoBehaviour {
 
     private bool mouseOver;
     private bool fusionné;
+
 
     //
 
