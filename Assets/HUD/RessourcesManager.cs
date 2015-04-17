@@ -20,7 +20,7 @@ public class RessourcesManager : MonoBehaviour {
 
     void Update()
     {
-        textRessource.text = "Ressource X : " + ressourceX.ToString(); // Affichage ressource
+        //textRessource.text = "Ressource X : " + ressourceX.ToString(); // Affichage ressource
     }
 
     IEnumerator gain_x()
