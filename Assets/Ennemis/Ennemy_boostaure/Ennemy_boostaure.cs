@@ -11,19 +11,8 @@ public class Ennemy_boostaure : Ennemy
 
     void Start()
     {
-        base.Start();
-
-        myNavMeshAgent.speed = 5;
-        boost_speed = 2;
-       
-
         vie = 100;
-        if (vie <= 0)
-        {
-            RessourcesManager.ressourceX++;
-        }
-
-        
+        boost_speed = 2;
     }
 
     void OnTriggerEnter(Collider touch)

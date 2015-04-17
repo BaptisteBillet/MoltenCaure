@@ -6,6 +6,7 @@ public class RessourcesManager : MonoBehaviour {
     public static int ressourceX;
     public int ressourceY;
     public bool gameover; // False par défaut durant la partie
+    public GUIText textRessource;
 
 	// Use this for initialization
 	void Start () 
@@ -16,6 +17,11 @@ public class RessourcesManager : MonoBehaviour {
 
         StartCoroutine( gain_x());
 	}
+
+    void Update()
+    {
+        textRessource.text = "Ressource X : " + ressourceX.ToString(); // Affichage ressource
+    }
 
     IEnumerator gain_x()
     {

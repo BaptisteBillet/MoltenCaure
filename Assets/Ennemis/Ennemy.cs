@@ -9,18 +9,10 @@ using System.Collections;
 
 public class Ennemy : MonoBehaviour {
 
-    public NavMeshAgent myNavMeshAgent; 
-
     //Vitesse de l'ennemi
     public float speed;
     //Vie de l'ennemi
     public float vie;
-
-    virtual protected void Start ()
-    {
-        myNavMeshAgent = GetComponent<NavMeshAgent>();
-       
-    }
 
     void OnTriggerEnter(Collider touch)
     {
@@ -30,10 +22,6 @@ public class Ennemy : MonoBehaviour {
         {
             //  /!\ Il faut faire en sorte que l'ennemi reviennent en arrière avec l'Artefact
         }
-        if (touch.tag == "start")
-        {
-            //  fin de partie
-        }
     }
 
 	void Update () 
@@ -41,6 +29,7 @@ public class Ennemy : MonoBehaviour {
         //Si l'ennemi n'a plus de vie, on détruit l'objet
         if(vie<=0)
         {
+            RessourcesManager.ressourceX++;
             Destroy(this.gameObject);
         }
 
