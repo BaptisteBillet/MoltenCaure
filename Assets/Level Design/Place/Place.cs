@@ -279,7 +279,7 @@ public class Place : MonoBehaviour {
                         {
                             Canvas = GameObject.FindWithTag("Canvas");
                             Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
-                            Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click
+                            Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place.click
 
                             //On affiche un menu
                             Panel_place = Instantiate(Panel_place_libre) as GameObject; // On instancie l'objet Panel_Place
@@ -308,9 +308,9 @@ public class Place : MonoBehaviour {
 
     public void quitter()
     {
-        /* NON FONCTIONNEL
+        // NON FONCTIONNEL
         Debug.Log("wtf");
         Destroy(Panel_place.gameObject);
-        menu = false;*/
+       // menu = false;
     }
 }
