@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: a809963907ea5604b9ee63a0935c4eb4
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - dalle_prefab: {fileID: 175112, guid: 350d48ef27cd5e941aff5d87f34e47b4, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
