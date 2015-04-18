@@ -106,12 +106,35 @@ public class Pose_tour : MonoBehaviour {
 
     public void checkFusion(ref List<Tour> tourTrouves, int x, int y, string typeDeTour, int level)     //Cette fusion vérifie s'il y a des tours similaires sur les cases adjacentes à la tour concernée
     {
-        Tour tourDroite = place_script.creation_script.plateauTour[x+ 1, y];            //Correspond à la tour potentiellement présente sur la case à droite de la tour concernée
-        Tour tourGauche = place_script.creation_script.plateauTour[x - 1, y];           //Correspond à la tour potentiellement présente sur la case à gauche de la tour concernée
-        Tour tourHaut = place_script.creation_script.plateauTour[x, y - 1];             //Correspond à la tour potentiellement présente sur la case au dessus de la tour concernée
-        Tour tourBas = place_script.creation_script.plateauTour[x, y + 1];              //Correspond à la tour potentiellement présente sur la case en dessous de la tour concernée
+        int Row = place_script.creation_script.ROW;
+        int Col = place_script.creation_script.COL;
+        Tour tourDroite = null;
+        Tour tourGauche = null;
+        Tour tourHaut = null;
+        Tour tourBas = null;
 
-        if (tourDroite != null && tourDroite.type == typeDeTour && tourDroite.level == level)       //Si il y a une tour dans la case à droite de la tour concernée et qu'elle est de même niveau
+        if (x + 1 < Row)
+        {
+            tourDroite = place_script.creation_script.plateauTour[x + 1, y];            //Correspond à la tour potentiellement présente sur la case à droite de la tour concernée
+        }
+
+        if (x - 1 > 0)
+        {
+            tourGauche = place_script.creation_script.plateauTour[x - 1, y];           //Correspond à la tour potentiellement présente sur la case à gauche de la tour concernée
+        }
+        
+        if (y - 1 > 0)
+        {
+            tourHaut = place_script.creation_script.plateauTour[x, y - 1];             //Correspond à la tour potentiellement présente sur la case au dessus de la tour concernée
+        }
+
+        if (y + 1 < Col)
+        {
+            tourBas = place_script.creation_script.plateauTour[x, y + 1];              //Correspond à la tour potentiellement présente sur la case en dessous de la tour concernée
+        }
+        
+
+        if (tourDroite && tourDroite.type == typeDeTour && tourDroite.level == level)       //Si il y a une tour dans la case à droite de la tour concernée et qu'elle est de même niveau
         {
             if(tourTrouves.Contains(tourDroite) == false)       //On vérifie que cette tour n'a pas déjà été détectée dans le cadre de ce test de fusion
             {
