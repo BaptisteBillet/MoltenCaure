@@ -68,13 +68,28 @@ public class Pose_tour : MonoBehaviour {
 
     public void canon()
     {
-        Debug.Log("canon");
-        //tour_canon = Instantiate(tour_canon) as GameObject;
-
-        Destroy(this.gameObject);
+        createTourCanon(1);        //On lance la fonction de création de tour Canon de niveau 1
+        Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
     }
 
+    public void createTourCanon(int level)         //Cette fonction permet de créer une tour Canon d'un niveau dépendant de s'il y a eu une fusion avant son exécution ou non.
+    {
+        Debug.Log("tour canon posée");
+        cible_script = (MainCanvas)transform.parent.gameObject.GetComponent(typeof(MainCanvas));
+        GameObject nouvelleTour_canon = Instantiate(tour_canon[level - 1]) as GameObject;       //On crée la tour Canon contenue dans le tableau à la case level-1 (pour correspondre au tableau qui commence à 0)
+        nouvelleTour_canon.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
 
+        Tour nouvelleTour = nouvelleTour_canon.GetComponent<Tour>();                   //On crée un gameobject dans lequel on met la tour que l'on a crée juste avant
+        nouvelleTour.type = "canon";                                                   //On attribue le type Canon à la tour que l'on vient de créer
+        nouvelleTour.level = level;                                                     //On attribue un niveau à la tour que l'on vient juste de créer à partir. Ce niveau dépend de s'il y a eu une fusion ou non
+        place_script.creation_script.plateauTour[place_script.xRow, place_script.yCol] = nouvelleTour;
+        //On accède au script de la tuile PUIS au script de la création du plateau (où sont les variables de positions des tuiles et des tours) PUIS à la position des tours pour attribuer les coordonnées de la nouvelle tour
+
+        if (!(level >= 3))          //Si le niveau de la tour créée n'est pas supérieur ou égal au niveau maximum alors on vérifie si une fusion est possible
+        {
+            checkFusionSup(nouvelleTour, "canon", level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
+        }
+    }
 
     public void checkFusionSup(Tour nouvelleTour, string typeDeTour, int level)         //On vérifie s'il est possible de fusionner une tour nouvelleTour avec des tours de son typeDeTour et de son Level
     {
@@ -85,7 +100,7 @@ public class Pose_tour : MonoBehaviour {
 
         if (tourTrouves.Count >= 3)                     //Si on a trouvé au moins 3 tours similaires alors on peut effectuer une fusion
         {
-            Debug.Log("tour rafale Fusionnée !");
+            Debug.Log("tour Fusionnée !");
             foreach(Tour tour in tourTrouves)           //Pour chaque tour que l'on a trouvé, on effectue une action
             {
                 DestroyImmediate(tour.gameObject);      //On détruit immédiatement (pour ne pas gêner la détection des autres tours) chaque tour trouvée lors du test de fusion
@@ -98,6 +113,9 @@ public class Pose_tour : MonoBehaviour {
                     break;
                 case "rafale":
                     createTourRafale(level);
+                    break;
+                case "canon":
+                    createTourCanon(level);
                     break;
             }
         }

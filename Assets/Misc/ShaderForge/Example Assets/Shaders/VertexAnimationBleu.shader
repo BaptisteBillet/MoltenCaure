@@ -65,9 +65,9 @@ Shader "Shader Forge/Examples/Vertex Animation" {
                 o.normalDir = mul(float4(v.normal,0), _World2Object).xyz;
                 o.tangentDir = normalize( mul( _Object2World, float4( v.tangent.xyz, 0.0 ) ).xyz );
                 o.binormalDir = normalize(cross(o.normalDir, o.tangentDir) * v.tangent.w);
-                float4 node_8779 = _Time + _TimeEditor;
-                float2 node_8778 = o.uv0;
-                float node_133 = pow((abs((frac((node_8778.rg+node_8779.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
+                float4 node_8707 = _Time + _TimeEditor;
+                float2 node_8706 = o.uv0;
+                float node_133 = pow((abs((frac((node_8706.rg+node_8707.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
                 v.vertex.xyz += (node_133*_BulgeScale*v.normal);
                 o.posWorld = mul(_Object2World, v.vertex);
                 o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
@@ -79,10 +79,10 @@ Shader "Shader Forge/Examples/Vertex Animation" {
                 float3x3 tangentTransform = float3x3( i.tangentDir, i.binormalDir, i.normalDir);
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
 /////// Normals:
-                float2 node_8778 = i.uv0;
-                float4 node_8779 = _Time + _TimeEditor;
-                float node_133 = pow((abs((frac((node_8778.rg+node_8779.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
-                float3 normalLocal = normalize(lerp(UnpackNormal(tex2D(_Normals,TRANSFORM_TEX(node_8778.rg, _Normals))).rgb,float3(0,0,1),node_133));
+                float2 node_8706 = i.uv0;
+                float4 node_8707 = _Time + _TimeEditor;
+                float node_133 = pow((abs((frac((node_8706.rg+node_8707.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
+                float3 normalLocal = normalize(lerp(UnpackNormal(tex2D(_Normals,TRANSFORM_TEX(node_8706.rg, _Normals))).rgb,float3(0,0,1),node_133));
                 float3 normalDirection =  normalize(mul( normalLocal, tangentTransform )); // Perturbed normals
                 float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
                 float3 halfDirection = normalize(viewDirection+lightDirection);
@@ -109,7 +109,7 @@ Shader "Shader Forge/Examples/Vertex Animation" {
                 float3 diffuseLight = diffuse;
                 diffuseLight += i.shLight; // Per-Vertex Light Probes / Spherical harmonics
                 float node_8608 = 0.1;
-                finalColor += diffuseLight * lerp(tex2D(_Diffuse,TRANSFORM_TEX(node_8778.rg, _Diffuse)).rgb,float3(node_8608,node_8608,node_8608),node_133);
+                finalColor += diffuseLight * lerp(tex2D(_Diffuse,TRANSFORM_TEX(node_8706.rg, _Diffuse)).rgb,float3(node_8608,node_8608,node_8608),node_133);
                 finalColor += specular;
                 finalColor += emissive;
 /// Final Color:
@@ -164,9 +164,9 @@ Shader "Shader Forge/Examples/Vertex Animation" {
                 o.normalDir = mul(float4(v.normal,0), _World2Object).xyz;
                 o.tangentDir = normalize( mul( _Object2World, float4( v.tangent.xyz, 0.0 ) ).xyz );
                 o.binormalDir = normalize(cross(o.normalDir, o.tangentDir) * v.tangent.w);
-                float4 node_8781 = _Time + _TimeEditor;
-                float2 node_8780 = o.uv0;
-                float node_133 = pow((abs((frac((node_8780.rg+node_8781.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
+                float4 node_8709 = _Time + _TimeEditor;
+                float2 node_8708 = o.uv0;
+                float node_133 = pow((abs((frac((node_8708.rg+node_8709.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
                 v.vertex.xyz += (node_133*_BulgeScale*v.normal);
                 o.posWorld = mul(_Object2World, v.vertex);
                 o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
@@ -178,10 +178,10 @@ Shader "Shader Forge/Examples/Vertex Animation" {
                 float3x3 tangentTransform = float3x3( i.tangentDir, i.binormalDir, i.normalDir);
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
 /////// Normals:
-                float2 node_8780 = i.uv0;
-                float4 node_8781 = _Time + _TimeEditor;
-                float node_133 = pow((abs((frac((node_8780.rg+node_8781.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
-                float3 normalLocal = normalize(lerp(UnpackNormal(tex2D(_Normals,TRANSFORM_TEX(node_8780.rg, _Normals))).rgb,float3(0,0,1),node_133));
+                float2 node_8708 = i.uv0;
+                float4 node_8709 = _Time + _TimeEditor;
+                float node_133 = pow((abs((frac((node_8708.rg+node_8709.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
+                float3 normalLocal = normalize(lerp(UnpackNormal(tex2D(_Normals,TRANSFORM_TEX(node_8708.rg, _Normals))).rgb,float3(0,0,1),node_133));
                 float3 normalDirection =  normalize(mul( normalLocal, tangentTransform )); // Perturbed normals
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
                 float3 halfDirection = normalize(viewDirection+lightDirection);
@@ -205,7 +205,7 @@ Shader "Shader Forge/Examples/Vertex Animation" {
                 float3 finalColor = 0;
                 float3 diffuseLight = diffuse;
                 float node_8608 = 0.1;
-                finalColor += diffuseLight * lerp(tex2D(_Diffuse,TRANSFORM_TEX(node_8780.rg, _Diffuse)).rgb,float3(node_8608,node_8608,node_8608),node_133);
+                finalColor += diffuseLight * lerp(tex2D(_Diffuse,TRANSFORM_TEX(node_8708.rg, _Diffuse)).rgb,float3(node_8608,node_8608,node_8608),node_133);
                 finalColor += specular;
 /// Final Color:
                 return fixed4(finalColor * 1,0);
@@ -247,8 +247,8 @@ Shader "Shader Forge/Examples/Vertex Animation" {
                 VertexOutput o;
                 o.uv0 = v.uv0;
                 o.normalDir = mul(float4(v.normal,0), _World2Object).xyz;
-                float4 node_8783 = _Time + _TimeEditor;
-                float node_133 = pow((abs((frac((o.uv0.rg+node_8783.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
+                float4 node_8711 = _Time + _TimeEditor;
+                float node_133 = pow((abs((frac((o.uv0.rg+node_8711.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
                 v.vertex.xyz += (node_133*_BulgeScale*v.normal);
                 o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
                 TRANSFER_SHADOW_COLLECTOR(o)
@@ -296,8 +296,8 @@ Shader "Shader Forge/Examples/Vertex Animation" {
                 VertexOutput o;
                 o.uv0 = v.uv0;
                 o.normalDir = mul(float4(v.normal,0), _World2Object).xyz;
-                float4 node_8785 = _Time + _TimeEditor;
-                float node_133 = pow((abs((frac((o.uv0.rg+node_8785.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
+                float4 node_8713 = _Time + _TimeEditor;
+                float node_133 = pow((abs((frac((o.uv0.rg+node_8713.g*float2(0.25,0)).r)-0.5))*2.0),_BulgeShape); // Panning gradient
                 v.vertex.xyz += (node_133*_BulgeScale*v.normal);
                 o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
                 TRANSFER_SHADOW_CASTER(o)
