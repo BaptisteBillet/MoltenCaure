@@ -11,6 +11,7 @@ public class Ennemy_boostaure : Ennemy
 
     void Start()
     {
+        Debug.Log("Boostaure créé");
         vie = 100;
         boost_speed = 2;
     }
