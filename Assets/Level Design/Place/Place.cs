@@ -14,6 +14,11 @@ public class Place : MonoBehaviour {
 
     public GameObject Canvas;
     private MainCanvas Canvas_script;
+    
+    /*public GameObject Panel;
+    private MainCanvas Panel_script; */
+
+    public MainCanvas Panel_place_libre;
 
     //ANTO
 
@@ -277,6 +282,8 @@ public class Place : MonoBehaviour {
                         Canvas = GameObject.FindWithTag("Canvas");
                         Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
                         Canvas_script.Place_click = this.gameObject;
+                        panelUI.GetComponent<Pose_tour>().place_script = this;
+                        panelUI.SetActive(true);
                         /*Panel = GameObject.FindWithTag("Canvas");
                         Panel_script = (MainCanvas)Panel.GetComponent(typeof(MainCanvas));
                         Panel_script.("Anim_Button_Canon");*/

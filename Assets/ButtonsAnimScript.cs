@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ButtonsAnimScript : MonoBehaviour {
 
-    public static bool estVisible;
+    public bool activeSelf;
 
 	// Use this for initialization
 	void Start () {
@@ -13,12 +13,10 @@ public class ButtonsAnimScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        /*estVisible = this.gameObject.activeSelf;
-
-        if(this.gameObject.activeSelf)
+	    if(this.activeSelf == true)
         {
-            Debug.Log(this.gameObject.activeSelf);
-        }*/
+            Debug.Log(activeSelf);
+        }
 	}
 
 
