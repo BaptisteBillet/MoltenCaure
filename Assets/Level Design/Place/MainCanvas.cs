@@ -17,5 +17,10 @@ public class MainCanvas : MonoBehaviour {
 
     }
 
+    void Update()
+    {
+        //Debug.Log(Place_click);
+    }
+
 
 }

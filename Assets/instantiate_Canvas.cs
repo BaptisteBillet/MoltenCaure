@@ -9,7 +9,7 @@ public class instantiate_Canvas : MonoBehaviour {
 	// Use this for initialization
 	void Awake () 
     {
-        Canvas = Instantiate(Canvas_prefab) as GameObject;
+        //Canvas = Instantiate(Canvas_prefab) as GameObject;
 	}
 
 }

@@ -14,10 +14,13 @@ public class Pose_tour : MonoBehaviour {
     private MainCanvas cible_script;
     public Place place_script;
 
+    public void quitter()
+    {
+        this.gameObject.SetActive(false);
+    }
 
     public void sniper()            //Se produit lorsqu'on clique sur le bouton de pose de tour Sniper
     {
-
         createTourSniper(1);        //On lance la fonction de création de tour Sniper de niveau 1
         Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
 
@@ -38,7 +41,9 @@ public class Pose_tour : MonoBehaviour {
         if (!(level >= 3))          //Si le niveau de la tour créée n'est pas supérieur ou égal au niveau maximum alors on vérifie si une fusion est possible
         {
             checkFusionSup(nouvelleTour, "sniper", level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
-        }  
+        }
+
+        this.gameObject.SetActive(false);   //Désactive le panel après que tous les tests de fusion aient été effectués
     }
 
     public void rafale()            //Se produit lorsqu'on clique sur le bouton de pose de tour Rafale
@@ -51,7 +56,10 @@ public class Pose_tour : MonoBehaviour {
     {
         Debug.Log("tour rafale posée");
         cible_script = (MainCanvas)transform.parent.gameObject.GetComponent(typeof(MainCanvas));
+        Debug.Log(level);
+        Debug.Log(tour_rafale[level - 1]);
         GameObject nouvelleTour_rafale = Instantiate(tour_rafale[level - 1]) as GameObject;       //On crée la tour Rafale contenue dans le tableau à la case level-1 (pour correspondre au tableau qui commence à 0)
+        
         nouvelleTour_rafale.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
 
         Tour nouvelleTour = nouvelleTour_rafale.GetComponent<Tour>();                   //On crée un gameobject dans lequel on met la tour que l'on a crée juste avant
@@ -64,6 +72,8 @@ public class Pose_tour : MonoBehaviour {
         {
             checkFusionSup(nouvelleTour, "rafale", level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
+
+        this.gameObject.SetActive(false);
     }
 
     public void canon()
@@ -74,7 +84,6 @@ public class Pose_tour : MonoBehaviour {
 
     public void createTourCanon(int level)         //Cette fonction permet de créer une tour Canon d'un niveau dépendant de s'il y a eu une fusion avant son exécution ou non.
     {
-        Debug.Log("tour canon posée");
         cible_script = (MainCanvas)transform.parent.gameObject.GetComponent(typeof(MainCanvas));
         GameObject nouvelleTour_canon = Instantiate(tour_canon[level - 1]) as GameObject;       //On crée la tour Canon contenue dans le tableau à la case level-1 (pour correspondre au tableau qui commence à 0)
         nouvelleTour_canon.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
@@ -89,6 +98,7 @@ public class Pose_tour : MonoBehaviour {
         {
             checkFusionSup(nouvelleTour, "canon", level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
+        this.gameObject.SetActive(false);
     }
 
     public void checkFusionSup(Tour nouvelleTour, string typeDeTour, int level)         //On vérifie s'il est possible de fusionner une tour nouvelleTour avec des tours de son typeDeTour et de son Level

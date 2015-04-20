@@ -46,7 +46,6 @@ public class Spawn : MonoBehaviour
         if (timeLeft <= 0.0f)
         {
             timeLeft = interval;
-            Debug.Log(numero_ennemi);
 
             GameObject spawner = null;
             // spawn

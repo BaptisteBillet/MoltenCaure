@@ -1,5 +1,6 @@
 ﻿ using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Place : MonoBehaviour {
 
@@ -9,12 +10,15 @@ public class Place : MonoBehaviour {
     private int layerMaskClic;
 
     public bool libre;//Si la place n'as pas de tour (true);
-    public bool menu; // Si le menu est affiché
+    //public bool menu; // Si le menu est affiché
 
     public GameObject Canvas;
     private MainCanvas Canvas_script;
+    
+    /*public GameObject Panel;
+    private MainCanvas Panel_script; */
 
-    public GameObject Panel_place_libre;
+    public MainCanvas Panel_place_libre;
 
     //ANTO
 
@@ -44,10 +48,13 @@ public class Place : MonoBehaviour {
 
     //
 
+    //UI
+    public GameObject panelUI;
+
     void Start()
     {
         libre = true;
-        menu = false;
+        //menu = false;
         layerMaskClic = LayerMask.NameToLayer(layerMaskName);
         mouseOver = true;
         fusionné = false;
@@ -109,17 +116,18 @@ public class Place : MonoBehaviour {
         return 0;
     }
 
-    void possibility()
+    /*void possibility()
     {
 
         //On enregistre la proximité de toutes les tours proches de la tour 1
-
+        Debug.Log(xRow2);
         //HAUT
         if (check_nearly(1, xRow, yCol) == 1 && fusionné == false) //Tour Haut
         {
             //On enregistre les coordonnées de la tour 2
             xRow2 = xRow;
             yCol2 = yCol + 1;
+
 
             //On enregistre la proximité de toutes les tours proches de la tour 2
             if (check_nearly(1, xRow2, yCol2) == 1 && fusionné == false) //Tour Haut
@@ -247,7 +255,7 @@ public class Place : MonoBehaviour {
         }
 
 
-    }
+    }*/
 
     void verification_L()
     {
@@ -267,29 +275,43 @@ public class Place : MonoBehaviour {
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))  //Si on touche quelquechose...          
             {
-
-                Debug.Log(hit.collider.tag);
-
-                if (hit.collider.tag == "place" && hit.collider.gameObject == this.gameObject && menu == false)   //... Et que cette chose est taggé comme une "place" ...
+                if (hit.collider.tag == "place" && hit.collider.gameObject == this.gameObject)   //... Et que cette chose est taggée comme une "place" ...
                 {
-
-                    Canvas = GameObject.FindWithTag("Canvas");
+                    if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                    {
+                        Canvas = GameObject.FindWithTag("Canvas");
+                        Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
+                        Canvas_script.Place_click = this.gameObject;
+                        panelUI.GetComponent<Pose_tour>().place_script = this;
+                        panelUI.SetActive(true);
+                        /*Panel = GameObject.FindWithTag("Canvas");
+                        Panel_script = (MainCanvas)Panel.GetComponent(typeof(MainCanvas));
+                        Panel_script.("Anim_Button_Canon");*/
+                        Vector3 vecPozUI = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                        panelUI.transform.position = Camera.main.WorldToScreenPoint(vecPozUI);
+                    }
+                    /*Canvas = GameObject.FindWithTag("Canvas");
                     Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
                     Canvas_script.Place_click = this.gameObject;
 
                     //On affiche un menu
                     Panel_place = Instantiate(Panel_place_prefab) as GameObject; // On instancie l'objet Panel_Place
                     Panel_place.transform.SetParent(MainCanvas.instance.transform, false); // L'instance de Panel_place devient l'enfant du Canvas
-                    Panel_place.transform.localPosition = this.gameObject.transform.position; // Le panel instancé prends les valeurs de position du gameobject touché
+                    Panel_place.transform.localPosition = this.gameObject.transform.position; // Le panel instancé prend les valeurs de position du gameobject touché
                     Panel_place.transform.localScale = new Vector3(1, 1, 1);
 
                     Panel_place.GetComponent<Pose_tour>().place_script = this;
 
                     menu = true; //on a ouvert le menu
-
+                    */
+                }
+                else if (hit.collider.tag != "place" && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                {
+                    panelUI.gameObject.SetActive(false);
                 }
 
-                else if (hit.collider.tag == "UI") //Si on touche un object avec un tag "UI"
+
+               /* else if (hit.collider.tag == "UI") //Si on touche un object avec un tag "UI"
                 {
                     menu = false;                    //On a fermé le menu
                     Destroy(Panel_place.gameObject); //On détruit l'object
@@ -316,7 +338,7 @@ public class Place : MonoBehaviour {
                 {
                     menu = false;
                     Destroy(Panel_place.gameObject);
-                }
+                }*/
 
             }
         }

@@ -17,7 +17,8 @@ public class Creation_script : MonoBehaviour
     public float marge;
 
     private Place place_script;
-    
+    public GameObject UIpanel;
+
     /*public enum ETATCASE {
 		VIDE,
 		TOUR,
@@ -28,6 +29,9 @@ public class Creation_script : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
+        //Elie
+        UIpanel.SetActive(false);
+
         //chemin = Instantiate(chemin_prefab) as GameObject;//On instancie le chemin sur lequel se déplacent les ennemis
 
 
@@ -49,6 +53,7 @@ public class Creation_script : MonoBehaviour
                 //GameObject dalle = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
                 place = Instantiate(place_prefab) as GameObject;
+                place.GetComponent<Place>().panelUI = UIpanel; //Elie DONE THAT BIATCH
                 place.transform.SetParent(this.gameObject.transform, false);
                 place_script = (Place)place.GetComponent(typeof(Place));    //On attribue le script de dalle à la variable dalle_script pour accéder et modifier les variables locales
                
