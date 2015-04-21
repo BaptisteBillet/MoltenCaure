@@ -6,9 +6,60 @@ using System.Collections;
 public class Ennemy_type : Ennemy 
 {
 
+    bool estEnCollision;
+
     void Start()
     {
         speed = 5;
         vie = 100;
     }
+
+
+    void Update()
+    {
+        if (estEnCollision)
+        {
+            speed = 50;
+        }
+        else
+        {
+            speed = -50;
+        }
+
+    }
+
+
+    //POUR LES BOOSTAURES : tester la collision sur un ennemi AUTRE QUE BOOSTAURE avec un gameobject rond disposé autour d'un boostaure.
+    // SI est en collision (dans l'update donc), alors on augmente la vitesse de base du monstre en question
+    // SI il n'est pas en collision avec, sa vitesse est normale
+
+    void OnTriggerEnter(Collider touch)
+    {
+
+        if (touch.tag == "boostaure")       //Si cet ennemi touche le collider d'un boostaure, alors quelque chose se passe
+        {
+            //ennemy_script = (Ennemy)touch.gameObject.GetComponent(typeof(Ennemy));
+            //ennemy_script.agent.speed += boost_speed;
+            Debug.Log("COllision avec Boostaure");
+            estEnCollision = true;
+
+        }
+
+    }
+
+
+    void OnTriggerExit(Collider touch)
+    {
+
+        if (touch.tag == "boostaure")           // Si cet ennemi sort du collider d'un 
+        {
+            //ennemy_script = (Ennemy)touch.gameObject.GetComponent(typeof(Ennemy));
+            //ennemy_script.agent.speed -= boost_speed;
+            Debug.Log("FIN DE LA COLLISION");
+            estEnCollision = false;
+        }
+
+    }
+
+
 }
