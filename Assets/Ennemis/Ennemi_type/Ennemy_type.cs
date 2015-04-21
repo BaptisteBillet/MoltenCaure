@@ -4,6 +4,7 @@ using System.Collections;
 //Ceci est un ennemy_type
 
 public class Ennemy_type : Ennemy 
+
 {
 
     bool estEnCollision;
@@ -19,11 +20,11 @@ public class Ennemy_type : Ennemy
     {
         if (estEnCollision)
         {
-            speed = 50;
+            this.GetComponent<NavMeshAgent>().speed =  50;
         }
         else
         {
-            speed = -50;
+            this.GetComponent<NavMeshAgent>().speed = speed;
         }
 
     }
@@ -42,7 +43,7 @@ public class Ennemy_type : Ennemy
             //ennemy_script.agent.speed += boost_speed;
             Debug.Log("COllision avec Boostaure");
             estEnCollision = true;
-
+            
         }
 
     }

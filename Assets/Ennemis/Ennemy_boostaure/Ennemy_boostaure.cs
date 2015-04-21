@@ -23,6 +23,7 @@ public class Ennemy_boostaure : Ennemy
             ennemy_script = (Ennemy)touch.gameObject.GetComponent(typeof(Ennemy));
             //ennemy_script.agent.speed += boost_speed;
             Debug.Log("COllision avec Boostaure");
+            
 
         }
 
@@ -37,6 +38,7 @@ public class Ennemy_boostaure : Ennemy
             ennemy_script = (Ennemy)touch.gameObject.GetComponent(typeof(Ennemy));
             //ennemy_script.agent.speed -= boost_speed;
             Debug.Log("FIN DE LA COLLISION");
+            
         }
 
     }
