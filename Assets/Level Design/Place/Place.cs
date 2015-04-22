@@ -116,147 +116,6 @@ public class Place : MonoBehaviour {
         return 0;
     }
 
-    /*void possibility()
-    {
-
-        //On enregistre la proximité de toutes les tours proches de la tour 1
-        Debug.Log(xRow2);
-        //HAUT
-        if (check_nearly(1, xRow, yCol) == 1 && fusionné == false) //Tour Haut
-        {
-            //On enregistre les coordonnées de la tour 2
-            xRow2 = xRow;
-            yCol2 = yCol + 1;
-
-
-            //On enregistre la proximité de toutes les tours proches de la tour 2
-            if (check_nearly(1, xRow2, yCol2) == 1 && fusionné == false) //Tour Haut
-            {
-                haut = 1;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2;
-                yCol3 = yCol2 + 1;
-            }
-            if (check_nearly(2, xRow2, yCol2) == 2 && fusionné == false) //Tour Droit
-            {
-                haut = 2;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2 + 1;
-                yCol3 = yCol2;
-            }
-
-            if (check_nearly(4, xRow2, yCol2) == 4 && fusionné == false) //Tour Gauche
-            {
-                haut = 4;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2 - 1;
-                yCol3 = yCol2;
-            }
-
-        }
-        //DROITE
-        if (check_nearly(2, xRow, yCol) == 2 && fusionné == false) //Tour Droite
-        {
-            //On enregistre les coordonnées de la tour 2
-            xRow2 = xRow + 1;
-            yCol2 = yCol;
-
-            //On enregistre la proximité de toutes les tours proches de la tour 2
-            if (check_nearly(1, xRow2, yCol2) == 1 && fusionné == false) //Tour Haut
-            {
-                droite = 1;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2;
-                yCol3 = yCol2 + 1;
-            }
-            if (check_nearly(2, xRow2, yCol2) == 3 && fusionné == false) //Tour Bas
-            {
-                droite = 3;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2;
-                yCol3 = yCol2 - 1;
-            }
-
-            if (check_nearly(4, xRow2, yCol2) == 4 && fusionné == false) //Tour Gauche
-            {
-                droite = 4;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2 - 1;
-                yCol3 = yCol2;
-            }
-
-        }
-
-        //BAS
-        if (check_nearly(3, xRow, yCol) == 3 && fusionné == false) //Tour Bas
-        {
-            //On enregistre les coordonnées de la tour 2
-            xRow2 = xRow;
-            yCol2 = yCol - 1;
-
-            //On enregistre la proximité de toutes les tours proches de la tour 2
-            if (check_nearly(2, xRow2, yCol2) == 2 && fusionné == false) //Tour Droit
-            {
-                bas = 2;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2 + 1;
-                yCol3 = yCol2;
-            }
-
-            if (check_nearly(2, xRow2, yCol2) == 3 && fusionné == false) //Tour Bas
-            {
-                bas = 3;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2;
-                yCol3 = yCol2 - 1;
-            }
-
-            if (check_nearly(4, xRow2, yCol2) == 4 && fusionné == false) //Tour Gauche
-            {
-                bas = 4;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2 - 1;
-                yCol3 = yCol2;
-            }
-
-        }
-
-        //GAUCHE
-        if (check_nearly(4, xRow, yCol) == 4 && fusionné == false) //Tour gauche
-        {
-            //On enregistre les coordonnées de la tour 2
-            xRow2 = xRow - 1;
-            yCol2 = yCol;
-
-            if (check_nearly(1, xRow2, yCol2) == 1 && fusionné == false) //Tour Haut
-            {
-                gauche = 1;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2;
-                yCol3 = yCol2 + 1;
-            }
-
-            if (check_nearly(2, xRow2, yCol2) == 3 && fusionné == false) //Tour Bas
-            {
-                gauche = 3;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2;
-                yCol3 = yCol2 - 1;
-            }
-
-            if (check_nearly(4, xRow2, yCol2) == 4 && fusionné == false) //Tour Gauche
-            {
-                gauche = 4;
-                //On enregistre les coordonnées de la tour 3
-                xRow3 = xRow2 - 1;
-                yCol3 = yCol2;
-            }
-
-        }
-
-
-    }*/
-
     void verification_L()
     {
 
@@ -281,7 +140,7 @@ public class Place : MonoBehaviour {
                     {
                         Canvas = GameObject.FindWithTag("Canvas");
                         Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
-                        Canvas_script.Place_click = this.gameObject;
+                        Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click
                         panelUI.GetComponent<Pose_tour>().place_script = this;
                         panelUI.SetActive(true);
                         /*Panel = GameObject.FindWithTag("Canvas");
@@ -309,37 +168,6 @@ public class Place : MonoBehaviour {
                 {
                     panelUI.gameObject.SetActive(false);
                 }
-
-
-               /* else if (hit.collider.tag == "UI") //Si on touche un object avec un tag "UI"
-                {
-                    menu = false;                    //On a fermé le menu
-                    Destroy(Panel_place.gameObject); //On détruit l'object
-                    if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() && !menu)
-                    {
-                        if (menu == false && libre == true)   //... Et que cette chose est taggé comme une "place" ...
-                        {
-                            Canvas = GameObject.FindWithTag("Canvas");
-                            Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
-                            Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click
-
-                            //On affiche un menu
-                            Panel_place = Instantiate(Panel_place_libre) as GameObject; // On instancie l'objet Panel_Place
-                            Panel_place.transform.SetParent(MainCanvas.instance.transform, false); // L'instance de Panel_place devient l'enfant du Canvas
-                            Panel_place.transform.localPosition = this.gameObject.transform.position; // Le panel instancé prends les valeurs de position du gameObject touché
-                            Panel_place.transform.localScale = new Vector3(1, 1, 1);
-
-                            menu = true; //on a ouvert le menu
-                        }
-                    }
-                }
-
-                if (menu == true && hit.collider.gameObject != this.gameObject) //SI le menu est ouvert et que l'on a touché un object qui n'est pas celui là
-                {
-                    menu = false;
-                    Destroy(Panel_place.gameObject);
-                }*/
-
             }
         }
     }
