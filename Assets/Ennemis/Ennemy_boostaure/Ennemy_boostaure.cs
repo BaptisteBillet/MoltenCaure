@@ -8,11 +8,12 @@ public class Ennemy_boostaure : Ennemy
     private Ennemy ennemy_script;
 
     private float boost_speed;
+    
 
     void Start()
     {
         vie = 100;
-        boost_speed = 2;
+        boost_speed = 5;
     }
 
     void OnTriggerEnter(Collider touch)
