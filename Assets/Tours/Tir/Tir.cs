@@ -10,7 +10,10 @@ using System.Collections;
 public class Tir : MonoBehaviour {
 
     // La cible fournit par la Tour
-    public GameObject cible; 
+    public GameObject cible;
+
+    // La cible fournit par la Tour Canon
+    public Vector3 cibleTirCanon; 
 
     // On accède au script de la cible
     private Ennemy cible_script;
@@ -23,7 +26,16 @@ public class Tir : MonoBehaviour {
 
     //L'accélération de la tour
     public float acceleration;
- 
+
+    //Le tir de la TOUR CANON sait où se diriger
+    public bool GetDestination;
+
+
+    void Start()
+    {
+        
+    }
+
     void OnTriggerEnter(Collider touch)
     {
         
@@ -49,16 +61,31 @@ public class Tir : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        if (cible != null) //Si la cible existe 
+        if (cibleTirCanon != null)
         {
-            //On se déplace vers la cible
-            transform.position = Vector3.Lerp(transform.position, cible.transform.position, delay * Time.deltaTime * acceleration);
-            //On la regarde en avançant
-            transform.LookAt(cible.transform);
+            GetDestination = true;
         }
-        else //Si la cible est détruite et que le tir est déjà lancé
+
+        if(transform.name.Contains("tir_canon"))
         {
-            Destroy(this.gameObject); //on détruit cet objet, il n'a plus d'utilité
+            transform.position = Vector3.Lerp(transform.position, cibleTirCanon, delay * Time.deltaTime * acceleration);
         }
+        else
+        {
+            if (cible != null) //Si la cible existe 
+            {
+                //On se déplace vers la cible
+                transform.position = Vector3.Lerp(transform.position, cible.transform.position, delay * Time.deltaTime * acceleration);
+                //On la regarde en avançant
+                transform.LookAt(cible.transform);
+            }
+            else //Si la cible est détruite et que le tir est déjà lancé
+            {
+                Destroy(this.gameObject); //on détruit cet objet, il n'a plus d'utilité
+            }
+        }
+
+        
+
 	}
 }

@@ -82,6 +82,13 @@ public class Tour : MonoBehaviour {
                     //Le projectile vise l'ennemie numero 1 (en position zéro dans la liste)
                     prefab_tir_script.cible = file[0].gameObject;
 
+                    //Le projectile de la TOUR CANON vise l'ennemie numero 1 (en position zéro dans la liste) S'IL n'as pas déjà une destination
+                   if(prefab_tir_script.GetDestination == false)
+                   {
+                       prefab_tir_script.cibleTirCanon = file[0].transform.position;
+                   }
+
+
                     //La tour tir un nouveau projectile
                     Instantiate(prefab_tir, transform.position, transform.rotation);
                                        
