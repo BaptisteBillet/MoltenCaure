@@ -14,6 +14,9 @@ public class Ennemy : MonoBehaviour {
     //Vie de l'ennemi
     public float vie;
 
+	[HideInInspector]
+	public Vector3 start;
+
     void OnTriggerEnter(Collider touch)
     {
         

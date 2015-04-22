@@ -100,6 +100,8 @@ public class Spawn : MonoBehaviour
         //On attribue la destination à l'ennemi créé
         nav_ennemy.destination = destination.position;
 
+		spawner.GetComponent<Ennemy>().start = this.transform.position;
+
         // numero_enemi%4 --> index de l'ennemi 
 
         // on incrémente le nombre d'ennemis créés
