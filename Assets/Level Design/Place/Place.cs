@@ -134,7 +134,7 @@ public class Place : MonoBehaviour {
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))  //Si on touche quelquechose...          
             {
-                if (hit.collider.tag == "place" && hit.collider.gameObject == this.gameObject)   //... Et que cette chose est taggée comme une "place" ...
+                if (hit.collider.tag == "place" && hit.collider.gameObject == this.gameObject && libre == true)   //... Et que cette chose est taggée comme une "place" ...
                 {
                     if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                     {
@@ -148,6 +148,7 @@ public class Place : MonoBehaviour {
                         Panel_script.("Anim_Button_Canon");*/
                         Vector3 vecPozUI = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
                         panelUI.transform.position = Camera.main.WorldToScreenPoint(vecPozUI);
+                        libre = false;
                     }
                     /*Canvas = GameObject.FindWithTag("Canvas");
                     Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));

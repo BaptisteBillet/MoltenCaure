@@ -30,6 +30,8 @@ public class Tour : MonoBehaviour {
     public string type;
     public int level;
 
+    public GameObject place_tour;
+
     void Start()
     {
         //On établi l'accès entre ce script et celui du GameObject prefab_Tir
