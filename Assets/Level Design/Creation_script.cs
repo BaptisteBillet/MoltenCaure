@@ -53,7 +53,7 @@ public class Creation_script : MonoBehaviour
                 //GameObject dalle = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
                 place = Instantiate(place_prefab) as GameObject;
-                place.GetComponent<Place>().panelUI = UIpanel; //Elie DONE THAT BIATCH
+                place.GetComponent<Place>().panelUI = UIpanel; //Elie DID THAT BIATCH
                 place.transform.SetParent(this.gameObject.transform, false);
                 place_script = (Place)place.GetComponent(typeof(Place));    //On attribue le script de dalle à la variable dalle_script pour accéder et modifier les variables locales
                

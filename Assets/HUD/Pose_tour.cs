@@ -47,6 +47,8 @@ public class Pose_tour : MonoBehaviour {
             checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
 
+        nouvelleTour.place_tour = place_script.gameObject;
+
         this.gameObject.SetActive(false);   //Désactive le panel après que tous les tests de fusion aient été effectués
     }
 
@@ -80,7 +82,8 @@ public class Pose_tour : MonoBehaviour {
         {
             checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
-
+        Debug.Log(nouvelleTour);
+        //nouvelleTour.place_tour = place_script.gameObject;
         this.gameObject.SetActive(false);
     }
 
@@ -110,7 +113,7 @@ public class Pose_tour : MonoBehaviour {
         {
             checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
-
+        //nouvelleTour.place_tour = place_script.gameObject;
         this.gameObject.SetActive(false);
     }
 
@@ -126,7 +129,9 @@ public class Pose_tour : MonoBehaviour {
             Debug.Log("tour Fusionnée !");
             foreach(Tour tour in tourTrouves)           //Pour chaque tour que l'on a trouvé, on effectue une action
             {
+                //tour.place_tour.GetComponent<Place>().libre = true; //La place sur laquelle était posée la tour redevient vide
                 DestroyImmediate(tour.gameObject);      //On détruit immédiatement (pour ne pas gêner la détection des autres tours) chaque tour trouvée lors du test de fusion
+                            
             }
             level++;                                    //On incrémente le niveau de la tour qui a été posée (puis détruite) pour en créer une autre de niveau supérieur
             switch(typeDeTour)                          //On crée une nouvelle tour d'un type correspondant aux tours fusionnées qui ont été détruites

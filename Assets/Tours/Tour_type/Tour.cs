@@ -30,6 +30,8 @@ public class Tour : MonoBehaviour {
     public string type;
     public int level;
 
+    public GameObject place_tour;
+
     void Start()
     {
         //On établi l'accès entre ce script et celui du GameObject prefab_Tir
@@ -88,10 +90,8 @@ public class Tour : MonoBehaviour {
                        prefab_tir_script.cibleTirCanon = file[0].transform.position;
                    }
 
-
                     //La tour tir un nouveau projectile
                     Instantiate(prefab_tir, transform.position, transform.rotation);
-                                       
 
                     //Maintenant on attend le couldown avant de relancer un projectile
                     yield return new WaitForSeconds(cooldown);
