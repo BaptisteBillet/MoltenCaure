@@ -21,4 +21,13 @@
 sysinfo.txt
 Assets/Ennemis/Ennemy_mordaure/Ennemy_mordaure 2.prefab.meta
 Assets/Ennemis/Ennemy_mordaure/Particle System.prefab
+<<<<<<< HEAD
 *.meta
+=======
+Assets/Animations/Jouer.controller.meta
+Assets/Animations/Jouer.controller.meta
+Assets/Scenes/Menu_GameOver.unity.meta
+*.meta
+Assets/Animations/Jouer.controller.meta
+>>>>>>> c218e89f8133edf3bbb5be5cdb96425f38f2775f
+*.meta~HEAD
