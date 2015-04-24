@@ -6,9 +6,10 @@ using System.Collections;
 
 public class Tour_type : Tour {
 
+    //public float cooldown;
     void Start()
     {
-        cooldown = 1;
+        //cooldown = 1;
         //Le mode_attaque devrait toujours être en false
         mode_attaque = false;
         aoe = false;
