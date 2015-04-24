@@ -30,6 +30,8 @@ public class Tour : MonoBehaviour {
     public string type;
     public int level;
 
+    public GameObject place_tour;
+
     void Start()
     {
         //On établi l'accès entre ce script et celui du GameObject prefab_Tir
@@ -72,52 +74,51 @@ public class Tour : MonoBehaviour {
 
     IEnumerator attack()
     {
-       
-            while (file.Count > 0) //Tant que la cible est toujours dans la liste
+        while (file.Count > 0) //Tant que la cible est toujours dans la liste
+        {
+            if (file[0] != null)
             {
-                if (file[0] != null)
+                prefab_tir_script = (Tir)prefab_tir.GetComponent(typeof(Tir));
+
+
+                //Le projectile vise l'ennemie numero 1 (en position zéro dans la liste)
+                prefab_tir_script.cible = file[0].gameObject;
+
+                //Le projectile de la TOUR CANON vise l'ennemie numero 1 (en position zéro dans la liste) S'IL n'as pas déjà une destination
+                if(prefab_tir_script.GetDestination == false)
                 {
-                    prefab_tir_script = (Tir)prefab_tir.GetComponent(typeof(Tir));
-
-                    //Le projectile vise l'ennemie numero 1 (en position zéro dans la liste)
-                    prefab_tir_script.cible = file[0].gameObject;
-
-                    //Le projectile de la TOUR CANON vise l'ennemie numero 1 (en position zéro dans la liste) S'IL n'as pas déjà une destination
-                   if(prefab_tir_script.GetDestination == false)
-                   {
-                       prefab_tir_script.cibleTirCanon = file[0].transform.position;
-                   }
-
-
-                    //La tour tir un nouveau projectile
-                    Instantiate(prefab_tir, transform.position, transform.rotation);
-                                       
-
-                    //Maintenant on attend le couldown avant de relancer un projectile
-                    yield return new WaitForSeconds(cooldown);
-                }
-                else
-                {
-                    break;
+                    prefab_tir_script.cibleTirCanon = file[0].transform.position;
                 }
 
+                //La tour tir un nouveau projectile
+                Instantiate(prefab_tir, transform.position, transform.rotation);
+
+                //Maintenant on attend le couldown avant de relancer un projectile
+                yield return new WaitForSeconds(cooldown);
+            }
+            else
+            {
+                break;
             }
 
-            if (file.Count > 0) //Si il y a des éléments dans le tableau
+        }
+
+        if (file.Count > 0) //Si il y a des éléments dans le tableau
+        {
+            //Normalement à ce stade la cible est morte, juste pour vérifier on fait ce if
+            if (file[0] == null) //Si il y n'y a pas d'élément en 1ère position on refresh la liste pour en trouver un
             {
-                //Normalement à ce stade la cible est morte, juste pour vérifier on fait ce if
-                if (file[0] == null) //Si il y n'y a pas d'élément en 1ère position on refresh la liste pour en trouver un
-                {
-                    refresh();
-                }
-            }else if(file.Count==0) //Si il n'y a plus de cible après celle qui vient de disparaître
-            {
-                //Alors on indique à la tour qu'elle est à nouveau prête à tirer
-                mode_attaque = false;
-                //On efface la dernière cible, elle est loin ou détruite
-                prefab_tir_script.cible = null;
+                refresh();
             }
-            yield return null;
+        }else if(file.Count==0) //Si il n'y a plus de cible après celle qui vient de disparaître
+        {
+            //Alors on indique à la tour qu'elle est à nouveau prête à tirer
+            mode_attaque = false;
+
+            //On efface la dernière cible, elle est loin ou détruite
+            prefab_tir_script.cible = null;
+        }
+        yield return null;
        
     }
 
