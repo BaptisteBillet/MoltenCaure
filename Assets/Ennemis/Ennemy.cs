@@ -31,7 +31,7 @@ public class Ennemy : MonoBehaviour {
 
 	public virtual void Update() 
     {
-		Debug.Log("alive");
+
         //Si l'ennemi n'a plus de vie, on détruit l'objet
         if(vie<=0)
         {

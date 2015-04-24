@@ -20,6 +20,8 @@ public class Spawn : MonoBehaviour
     public List<GameObject> vague4;
     public List<GameObject> vague5;
     public List<GameObject> vague6;
+	public List<GameObject> vague7;
+	public List<GameObject> vague8;
 
     public List<List<GameObject>> vagues;
 
@@ -42,13 +44,22 @@ public class Spawn : MonoBehaviour
     public Transform destination = null;
     public Transform destiRetour = null;
 
+	public bool new_vague;
     void Start()
     {
         //Initialisation des variables
-        vagues = new List<List<GameObject>>(new List<GameObject>[]{vague1, vague2, vague3, vague4, vague5, vague6});
+        vagues = new List<List<GameObject>>(new List<GameObject>[]{vague1, vague2, vague3, vague4, vague5, vague6, vague7,vague8});
         timeLeft = 0;
         numero_ennemi = 0;
+		StartCoroutine(calcul_new_vague());
     }
+
+	IEnumerator calcul_new_vague ()
+	{
+		yield return new WaitForSeconds(10);
+		new_vague = true;
+	}
+
 
     void Update()
     {
@@ -63,8 +74,9 @@ public class Spawn : MonoBehaviour
         }
 
         //Déclenche la vague suivante si la vague précédente a fini d'être envoyée en appuyant sur Espace en attendant que les ennemis puissent être tués
-        if (Input.GetKeyDown("space") && vagueTerminee)
+        if ((Input.GetKeyDown("space") && vagueTerminee)||new_vague)
         {
+			new_vague = false;
             vagueTerminee = false;
         }
     }

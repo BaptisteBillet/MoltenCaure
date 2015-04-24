@@ -5,7 +5,7 @@ public class Artefact : MonoBehaviour {
 
 	private Vector3 start_position;
 
-	public GameObject destination;
+	//public GameObject destination;
 
 	NavMeshAgent nav_artefact;
 
