@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Artefact : MonoBehaviour {
 
-	public bool hold;
 	private Vector3 start_position;
 
 	public GameObject destination;
@@ -24,31 +23,42 @@ public class Artefact : MonoBehaviour {
 	void Update () {
 	
 		
-		if(hold==false && this.transform.position!=start_position)
+		if(Artefact_Script.instance.hold==false && this.transform.position!=start_position)
 		{
-			nav_artefact.enabled = true;
+			//On attribue la destination à l'ennemi créé
+			nav_artefact.destination = start_position;
 		}
 		else
 		{
-			nav_artefact.enabled = false;
+			//On attribue la destination à l'ennemi créé
+			nav_artefact.destination = Artefact_Script.instance.start_point.transform.position;
 		}
-		
-		if(hold==true)
+
+		if (Artefact_Script.instance.hold == true)
 		{
 			if(holder == null)
 			{
-				hold = false;
+				Artefact_Script.instance.hold = false;
 			}
 		}
 
+
+
 	}
 
-	void OnCollisionEnter(Collision other)
+	void OnTriggerEnter(Collider other)
 	{
 		if(other.gameObject.tag=="ennemy")
 		{
-			hold = true;
+			Ennemy ennemy_touch = other.GetComponent<Ennemy>();
+			ennemy_touch.objectif_artefact = true;
+			Artefact_Script.instance.hold = true;
 			holder = other.gameObject;
+		}
+		if (other.gameObject.tag == "Start")
+		{
+			Debug.Log("stop");
+
 		}
 	}
 

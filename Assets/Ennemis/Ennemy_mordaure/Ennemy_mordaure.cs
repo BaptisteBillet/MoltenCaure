@@ -11,9 +11,8 @@ public class Ennemy_mordaure : Ennemy
     public GameObject particule;
     private GameObject particule_instance;
 
-    void Start()
+    public override void Start()
     {
-        vie = 100;
         StartCoroutine(fog());
     }
     IEnumerator fog()

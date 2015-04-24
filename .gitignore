@@ -31,3 +31,6 @@ Assets/Scenes/Menu_GameOver.unity.meta
 Assets/Animations/Jouer.controller.meta
 >>>>>>> c218e89f8133edf3bbb5be5cdb96425f38f2775f
 *.meta~HEAD
+*.meta
+Assets/Menu_Principal/LoadNewScene.cs.meta
+Assets/Menu_Principal/LoadNewScene.cs.meta
