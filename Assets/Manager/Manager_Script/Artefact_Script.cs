@@ -37,11 +37,23 @@ public class Artefact_Script : MonoBehaviour {
 
 	public Text Text_UI_X;
 	public Text Text_UI_Y;
-	
+
+	public bool hold;
+
+	public GameObject start_point;
+	public GameObject artefact;
+
 	#endregion
 
 	// Use this for initialization
 	void Start () {
+
+		start_point = GameObject.FindWithTag("Start");
+		artefact = GameObject.FindWithTag("Artefact");
+
+		Debug.Log(start_point);
+		Debug.Log(artefact);
+
 
 		X = base_X;
 		Y = base_Y;

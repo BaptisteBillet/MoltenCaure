@@ -7,17 +7,21 @@ public class Ennemy_type : Ennemy
 
 {
 
-    bool estEnCollision;
+   // bool estEnCollision;
 
-    void Start()
+    public override void Start()
     {
+		base.Start();
+
         speed = 5;
         vie = 100;
     }
 
 
-    void Update()
+    public override void Update()
     {
+		base.Update();
+		/*
         if (estEnCollision)
         {
             this.GetComponent<NavMeshAgent>().speed =  50;
@@ -26,14 +30,14 @@ public class Ennemy_type : Ennemy
         {
             this.GetComponent<NavMeshAgent>().speed = speed;
         }
-
+		*/
     }
 
 
     //POUR LES BOOSTAURES : tester la collision sur un ennemi AUTRE QUE BOOSTAURE avec un gameobject rond disposé autour d'un boostaure.
     // SI est en collision (dans l'update donc), alors on augmente la vitesse de base du monstre en question
     // SI il n'est pas en collision avec, sa vitesse est normale
-
+	/*
     void OnTriggerEnter(Collider touch)
     {
 
@@ -61,6 +65,6 @@ public class Ennemy_type : Ennemy
         }
 
     }
-
+	*/
 
 }

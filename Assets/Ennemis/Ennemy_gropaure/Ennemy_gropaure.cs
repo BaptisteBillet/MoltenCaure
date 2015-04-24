@@ -6,10 +6,5 @@ using System.Collections;
 public class Ennemy_gropaure : Ennemy 
 {
 
-    void Start()
-    {
-        vie = 150;
-    }
-
 
 }

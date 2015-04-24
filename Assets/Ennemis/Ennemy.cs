@@ -17,24 +17,45 @@ public class Ennemy : MonoBehaviour {
 	[HideInInspector]
 	public Vector3 start;
 
-    void OnTriggerEnter(Collider touch)
-    {
-        
-        //Si l'ennemi atteint l'Artefact
-        if (touch.tag == "end")
-        {
-            //  /!\ Il faut faire en sorte que l'ennemi reviennent en arrière avec l'Artefact
-        }
-    }
+	public bool objectif_artefact;
 
-	void Update () 
+	public NavMeshAgent nav_ennemy;
+
+
+
+	public virtual void Start()
+	{
+		//On attribue le navmesh à l'ennemi créé
+		nav_ennemy = this.gameObject.GetComponent<NavMeshAgent>();
+	}
+
+	public virtual void Update() 
     {
+		Debug.Log("alive");
         //Si l'ennemi n'a plus de vie, on détruit l'objet
         if(vie<=0)
         {
             RessourcesManager.ressourceX++;
             Destroy(this.gameObject);
         }
+
+		if(Artefact_Script.instance.hold==false)
+		{
+			objectif_artefact = false;
+		}
+
+
+		if(objectif_artefact==true)
+		{
+			//On attribue la destination à l'ennemi créé
+			nav_ennemy.destination = Artefact_Script.instance.start_point.transform.position;
+		}
+		else 
+		{
+			//On attribue la destination à l'ennemi créé
+			nav_ennemy.destination = Artefact_Script.instance.artefact.transform.position;
+		}
+
 
 	}
 }
