@@ -57,7 +57,7 @@ public class Artefact : MonoBehaviour {
 		}
 		if (other.gameObject.tag == "Start")
 		{
-			Debug.Log("stop");
+			Application.LoadLevel("Menu_GameOver");
 
 		}
 	}
