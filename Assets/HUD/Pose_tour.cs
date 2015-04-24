@@ -14,9 +14,11 @@ public class Pose_tour : MonoBehaviour {
 
     private MainCanvas cible_script;
     public Place place_script;
+	public GameObject place_touch;
 
     public void quitter()
     {
+		place_touch.GetComponent<Place>().libre = true;
         this.gameObject.SetActive(false);
     }
 
@@ -47,8 +49,8 @@ public class Pose_tour : MonoBehaviour {
             checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
 
-        nouvelleTour.place_tour = place_script.gameObject;
-
+        
+		nouvelleTour.place_tour = place_touch;
         this.gameObject.SetActive(false);   //Désactive le panel après que tous les tests de fusion aient été effectués
     }
 
@@ -60,10 +62,10 @@ public class Pose_tour : MonoBehaviour {
 
     public void createTourRafale(int level)         //Cette fonction permet de créer une tour Rafale d'un niveau dépendant de s'il y a eu une fusion avant son exécution ou non.
     {
-        Debug.Log("tour rafale posée");
+
         cible_script = (MainCanvas)transform.parent.gameObject.GetComponent(typeof(MainCanvas));
-        Debug.Log(level);
-        Debug.Log(tour_rafale[level - 1]);
+
+
         GameObject nouvelleTour_rafale = Instantiate(tour_rafale[level - 1]) as GameObject;       //On crée la tour Rafale contenue dans le tableau à la case level-1 (pour correspondre au tableau qui commence à 0)
         
         nouvelleTour_rafale.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
@@ -82,8 +84,8 @@ public class Pose_tour : MonoBehaviour {
         {
             checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
-        Debug.Log(nouvelleTour);
-        //nouvelleTour.place_tour = place_script.gameObject;
+
+		nouvelleTour.place_tour = place_touch;
         this.gameObject.SetActive(false);
     }
 
@@ -114,6 +116,7 @@ public class Pose_tour : MonoBehaviour {
             checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
         //nouvelleTour.place_tour = place_script.gameObject;
+		nouvelleTour.place_tour = place_touch;
         this.gameObject.SetActive(false);
     }
 
@@ -129,7 +132,13 @@ public class Pose_tour : MonoBehaviour {
             Debug.Log("tour Fusionnée !");
             foreach(Tour tour in tourTrouves)           //Pour chaque tour que l'on a trouvé, on effectue une action
             {
-                //tour.place_tour.GetComponent<Place>().libre = true; //La place sur laquelle était posée la tour redevient vide
+				if (tour.place_tour!=null)
+				{
+					tour.place_tour.GetComponent<Place>().libre = true;	   //La place sur laquelle était posée la tour redevient vide
+				}
+				
+                			
+				
                 DestroyImmediate(tour.gameObject);      //On détruit immédiatement (pour ne pas gêner la détection des autres tours) chaque tour trouvée lors du test de fusion
                             
             }
@@ -229,6 +238,10 @@ public class Pose_tour : MonoBehaviour {
             Debug.Log("tour L CREEE !");
             foreach (Tour tour in tourTrouves)           //Pour chaque tour que l'on a trouvé, on effectue une action
             {
+				if (tour.place_tour != null)
+				{
+					tour.place_tour.GetComponent<Place>().libre = true;	   //La place sur laquelle était posée la tour redevient vide
+				}
                 DestroyImmediate(tour.gameObject);      //On détruit immédiatement (pour ne pas gêner la détection des autres tours) chaque tour trouvée lors du test de fusion
             }                                   
             createTourL();

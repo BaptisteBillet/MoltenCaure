@@ -142,6 +142,7 @@ public class Place : MonoBehaviour {
                         Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
                         Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click
                         panelUI.GetComponent<Pose_tour>().place_script = this;
+						panelUI.GetComponent<Pose_tour>().place_touch = this.gameObject;
                         panelUI.SetActive(true);
                         /*Panel = GameObject.FindWithTag("Canvas");
                         Panel_script = (MainCanvas)Panel.GetComponent(typeof(MainCanvas));

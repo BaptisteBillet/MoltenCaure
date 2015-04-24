@@ -153,7 +153,7 @@ public class Tour : MonoBehaviour {
 
                 if(mode_attaque==false) //... et que la tour n'attaque pas encore, on lance une attaque
                 {
-                    Debug.Log("attaque");
+
                     //La tour attaque 
                     StartCoroutine(attack());
                     mode_attaque = true;
