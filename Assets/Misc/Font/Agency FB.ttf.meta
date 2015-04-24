@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: cd17914ea53c5134ca87155f113ee0a9
+timeCreated: 1429902871
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 2
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 1
+  characterPadding: 0
+  includeFontData: 1
+  use2xBehaviour: 0
+  fontNames:
+  - Agency FB // 120pt
+  customCharacters: 
+  fontRenderingMode: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
