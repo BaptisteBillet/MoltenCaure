@@ -21,7 +21,10 @@ public class Place : MonoBehaviour {
     public MainCanvas Panel_place_libre;
 
     //ANTO
+    Color couleur;
 
+    Renderer renderer;
+    Material material;
     public Creation_script creation_script;
 
     //La tour 1
@@ -46,6 +49,7 @@ public class Place : MonoBehaviour {
     private bool fusionné;
 
 
+
     //
 
     //UI
@@ -53,11 +57,16 @@ public class Place : MonoBehaviour {
 
     void Start()
     {
+
+        material = this.GetComponent<Renderer>().material;
         libre = true;
         //menu = false;
         layerMaskClic = LayerMask.NameToLayer(layerMaskName);
         mouseOver = true;
         fusionné = false;
+        couleur = gameObject.GetComponent<Renderer>().material.color;
+        couleur.a = 0.05f;
+        material.color = couleur;
     }
 
     void OnMouseOver()
@@ -65,6 +74,8 @@ public class Place : MonoBehaviour {
         if (mouseOver == true)
         {
             //Debug.Log(xRow + " " + yCol + " " + libre);
+            couleur.a = 0.3f;
+            material.color = couleur;
             mouseOver = false;
         }
     }
@@ -72,6 +83,8 @@ public class Place : MonoBehaviour {
     void OnMouseExit()
     {
         mouseOver = true;
+        couleur.a = 0.05f;
+        material.color = couleur;
     }
 
 

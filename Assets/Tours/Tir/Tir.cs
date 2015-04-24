@@ -34,6 +34,8 @@ public class Tir : MonoBehaviour {
     // File d'attente de la tour. Les ennemis qui rentre dans la zone de detection y sont stockés
     List<GameObject> file = new List<GameObject>();
 
+    public ParticleSystem PE;
+
     public bool canon;
     public bool canon_explose;
 
@@ -91,6 +93,18 @@ public class Tir : MonoBehaviour {
                 //On applique les dégâts à la cible
                 cible_script.vie -= degats;
 
+                //On permet aux particules de finir leur cycle
+                Transform PE = transform.Find("Partie");
+                if (PE != null)
+                {
+                    PE.GetComponent<ParticleSystem>().Stop();
+                    PE.transform.parent = null;
+                }
+
+
+
+                
+
                 //Le tir se détruit à l'impact
                 Destroy(this.gameObject);
             }
@@ -141,6 +155,7 @@ public class Tir : MonoBehaviour {
                 transform.position = Vector3.Lerp(transform.position, cible.transform.position, delay * Time.deltaTime * acceleration);
                 //On la regarde en avançant
                 transform.LookAt(cible.transform);
+                
             }
             else //Si la cible est détruite et que le tir est déjà lancé
             {
