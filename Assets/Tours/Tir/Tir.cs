@@ -94,9 +94,10 @@ public class Tir : MonoBehaviour {
                 cible_script.vie -= degats;
 
                 //On permet aux particules de finir leur cycle
-                Transform PE = transform.Find("Partie");
+                //Transform PE = transform.Find("Partie");
                 if (PE != null)
                 {
+                    Debug.Log("trololo");
                     PE.GetComponent<ParticleSystem>().Stop();
                     PE.transform.parent = null;
                 }
