@@ -8,13 +8,16 @@ public class Pose_tour : MonoBehaviour {
     public GameObject[] tour_canon;
     public GameObject tour_L;
 
-    //Quand y aura plusieurs niveaux :
-    //public GameObject[] tour_rafale;
     //Quand on instancie la tour on note : tour_rafale[level-1]
 
     private MainCanvas cible_script;
     public Place place_script;
 	public GameObject place_touch;
+
+    //MENU AMELIORATIONS
+    public GameObject UIamelio;
+    public Tour tour_script;                //On accède au script de la Tour
+    public GameObject tour_touch;           //On accède à la Tour touchée
 
     public void quitter()
     {
@@ -35,6 +38,7 @@ public class Pose_tour : MonoBehaviour {
         nouvelleTour_sniper.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
 
         Tour nouvelleTour = nouvelleTour_sniper.GetComponent<Tour>();                   //On crée un gameobject dans lequel on met la tour que l'on a crée juste avant
+        nouvelleTour.panelAmelio = UIamelio;
         nouvelleTour.type = "sniper";                                                   //On attribue le type Sniper à la tour que l'on vient de créer
         nouvelleTour.level = level;                                                     //On attribue un niveau à la tour que l'on vient juste de créer à partir. Ce niveau dépend de s'il y a eu une fusion ou non
         place_script.                       creation_script.                        plateauTour[place_script.xRow, place_script.yCol] = nouvelleTour;
@@ -71,8 +75,10 @@ public class Pose_tour : MonoBehaviour {
         nouvelleTour_rafale.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
 
         Tour nouvelleTour = nouvelleTour_rafale.GetComponent<Tour>();                   //On crée un gameobject dans lequel on met la tour que l'on a crée juste avant
+        nouvelleTour.panelAmelio = UIamelio;
         nouvelleTour.type = "rafale";                                                   //On attribue le type Rafale à la tour que l'on vient de créer
         nouvelleTour.level = level;                                                     //On attribue un niveau à la tour que l'on vient juste de créer à partir. Ce niveau dépend de s'il y a eu une fusion ou non
+
         place_script.creation_script.plateauTour[place_script.xRow, place_script.yCol] = nouvelleTour;
         //On accède au script de la tuile PUIS au script de la création du plateau (où sont les variables de positions des tuiles et des tours) PUIS à la position des tours pour attribuer les coordonnées de la nouvelle tour
 
@@ -102,6 +108,7 @@ public class Pose_tour : MonoBehaviour {
         nouvelleTour_canon.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
 
         Tour nouvelleTour = nouvelleTour_canon.GetComponent<Tour>();                   //On crée un gameobject dans lequel on met la tour que l'on a crée juste avant
+        nouvelleTour.panelAmelio = UIamelio;
         nouvelleTour.type = "canon";                                                   //On attribue le type Canon à la tour que l'on vient de créer
         nouvelleTour.level = level;                                                     //On attribue un niveau à la tour que l'on vient juste de créer à partir. Ce niveau dépend de s'il y a eu une fusion ou non
         place_script.creation_script.plateauTour[place_script.xRow, place_script.yCol] = nouvelleTour;
@@ -322,6 +329,7 @@ public class Pose_tour : MonoBehaviour {
         nouvelleTour_L.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
 
         Tour nouvelleTour = nouvelleTour_L.GetComponent<Tour>();                   //On crée un gameobject dans lequel on met la tour que l'on a crée juste avant
+        nouvelleTour.panelAmelio = UIamelio;
         nouvelleTour.type = "L";                                                   //On attribue le type Sniper à la tour que l'on vient de créer
         place_script.creation_script.plateauTour[place_script.xRow, place_script.yCol] = nouvelleTour;
         //On accède au script de la tuile PUIS au script de la création du plateau (où sont les variables de positions des tuiles et des tours) PUIS à la position des tours pour attribuer les coordonnées de la nouvelle tour

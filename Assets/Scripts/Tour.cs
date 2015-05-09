@@ -30,10 +30,20 @@ public class Tour : MonoBehaviour {
     public string type;
     public int level;
 
+    //variables de survol de tour
+    private bool mouseOver;
+
     public GameObject place_tour;
+
+    //UI AMELIORATIONS
+    public GameObject Canvas;
+    private MainCanvas Canvas_script;
+    public GameObject panelAmelio;
 
     void Start()
     {
+        mouseOver = true;
+
         //On établi l'accès entre ce script et celui du GameObject prefab_Tir
         prefab_tir_script = (Tir)prefab_tir.GetComponent(typeof(Tir));
 
@@ -44,11 +54,28 @@ public class Tour : MonoBehaviour {
         mode_attaque = false;
     }
 
+    void OnMouseOver()
+    {
+        if (mouseOver == true)
+        {
+            //Debug.Log(xRow + " " + yCol + " " + libre);
+            mouseOver = false;
+        }
+    }
+
+    void OnMouseExit()
+    {
+        mouseOver = true;
+    }
+
+
+
     //En cas de detection d'ennemis
     void OnTriggerEnter(Collider ennemy)
     {
         if(ennemy.tag=="ennemy")
         {
+            Debug.Log("YOLOOOOO");
             //On ajoute l'ennemi qui est detecté dans la file d'attente de la tour
             file.Add(ennemy.gameObject);
         }
@@ -141,6 +168,38 @@ public class Tour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                if (hit.collider.tag == "Tour" && hit.collider.gameObject == this.gameObject/* && level == 3*/)        //Il faudra ajouter une vérification concernant une éventelle amélioration déjà posée
+                {
+                    if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                    {
+                        Canvas = GameObject.FindWithTag("Canvas");
+                        Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
+                        Canvas_script.Tour_Click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click
+                        panelAmelio.GetComponent<Pose_Amelio>().tour_script = this;
+                        panelAmelio.GetComponent<Pose_Amelio>().tour_touch = this.gameObject;
+                        panelAmelio.SetActive(true);
+                        Vector3 vecPozUIAmelio = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                        panelAmelio.transform.position = Camera.main.WorldToScreenPoint(vecPozUIAmelio);
+
+                    }
+                }
+                else if (hit.collider.tag != "Tour" && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                {
+                    if (panelAmelio != null)
+                    {
+                        panelAmelio.gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+
 
         if(file.Count>0) //Si il y a des éléments dans le tableau
         {

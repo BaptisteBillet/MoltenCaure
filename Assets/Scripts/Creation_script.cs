@@ -18,6 +18,7 @@ public class Creation_script : MonoBehaviour
 
     private Place place_script;
     public GameObject UIpanel;
+    //public GameObject UIamelio;
 
     /*public enum ETATCASE {
 		VIDE,
@@ -30,7 +31,9 @@ public class Creation_script : MonoBehaviour
 	void Start () 
     {
         //Elie
+        //On désactive les menus afin d'être sûr qu'ils ne soient pas actifs dans le hierarchy
         UIpanel.SetActive(false);
+        //UIamelio.SetActive(false);
 
         //chemin = Instantiate(chemin_prefab) as GameObject;//On instancie le chemin sur lequel se déplacent les ennemis
 
@@ -54,6 +57,7 @@ public class Creation_script : MonoBehaviour
 
                 place = Instantiate(place_prefab) as GameObject;
                 place.GetComponent<Place>().panelUI = UIpanel; //Elie DID THAT BIATCH
+                //place.GetComponent<Tour>().panelAmelio = UIamelio; //On ajoute le menu d'améliorations à chaque tour
                 place.transform.SetParent(this.gameObject.transform, false);
                 place_script = (Place)place.GetComponent(typeof(Place));    //On attribue le script de dalle à la variable dalle_script pour accéder et modifier les variables locales
                

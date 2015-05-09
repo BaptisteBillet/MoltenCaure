@@ -14,13 +14,13 @@ public class Place : MonoBehaviour {
 
     public GameObject Canvas;
     private MainCanvas Canvas_script;
-    
-    /*public GameObject Panel;
-    private MainCanvas Panel_script; */
 
     public MainCanvas Panel_place_libre;
 
-    //ANTO
+    //UI
+    public GameObject panelUI;
+
+
     Color couleur;
 
     Renderer renderer;
@@ -49,12 +49,6 @@ public class Place : MonoBehaviour {
     private bool fusionné;
 
 
-
-    //
-
-    //UI
-    public GameObject panelUI;
-
     void Start()
     {
 
@@ -71,7 +65,7 @@ public class Place : MonoBehaviour {
 
     void OnMouseOver()
     {
-        if (mouseOver == true)
+        if (mouseOver == true && libre == true)
         {
             //Debug.Log(xRow + " " + yCol + " " + libre);
             couleur.a = 0.3f;
@@ -137,6 +131,11 @@ public class Place : MonoBehaviour {
 
     void Update()
     {
+        /*if (libre == false)
+        {
+            couleur.a = 0.15f;
+            material.color = couleur;
+        }*/
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -151,33 +150,27 @@ public class Place : MonoBehaviour {
                 {
                     if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                     {
-                        Canvas = GameObject.FindWithTag("Canvas");
+                        /*Canvas = GameObject.FindWithTag("Canvas");
                         Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
                         Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click
                         panelUI.GetComponent<Pose_tour>().place_script = this;
 						panelUI.GetComponent<Pose_tour>().place_touch = this.gameObject;
                         panelUI.SetActive(true);
-                        /*Panel = GameObject.FindWithTag("Canvas");
-                        Panel_script = (MainCanvas)Panel.GetComponent(typeof(MainCanvas));
-                        Panel_script.("Anim_Button_Canon");*/
+                        Vector3 vecPozUI = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                        panelUI.transform.position = Camera.main.WorldToScreenPoint(vecPozUI);
+                        libre = false;
+                        */
+                        Canvas = GameObject.FindWithTag("Canvas");
+                        Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
+                        Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click
+                        panelUI.GetComponent<Pose_tour>().place_script = this;
+                        panelUI.GetComponent<Pose_tour>().place_touch = this.gameObject;
+                        panelUI.SetActive(true);
+                        //panelAmelio.SetActive(true);
                         Vector3 vecPozUI = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
                         panelUI.transform.position = Camera.main.WorldToScreenPoint(vecPozUI);
                         libre = false;
                     }
-                    /*Canvas = GameObject.FindWithTag("Canvas");
-                    Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
-                    Canvas_script.Place_click = this.gameObject;
-
-                    //On affiche un menu
-                    Panel_place = Instantiate(Panel_place_prefab) as GameObject; // On instancie l'objet Panel_Place
-                    Panel_place.transform.SetParent(MainCanvas.instance.transform, false); // L'instance de Panel_place devient l'enfant du Canvas
-                    Panel_place.transform.localPosition = this.gameObject.transform.position; // Le panel instancé prend les valeurs de position du gameobject touché
-                    Panel_place.transform.localScale = new Vector3(1, 1, 1);
-
-                    Panel_place.GetComponent<Pose_tour>().place_script = this;
-
-                    menu = true; //on a ouvert le menu
-                    */
                 }
                 else if (hit.collider.tag != "place" && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {

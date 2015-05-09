@@ -36,10 +36,6 @@ public class Spawn : MonoBehaviour
     //Indique si une vague est terminée
     private bool vagueTerminee = false;
 
-    // L'objet que l'on doit faire spawner
-    public GameObject ennemy;
-    public GameObject boostaure;
-
     // destination 
     public Transform destination = null;
     public Transform destiRetour = null;
