@@ -35,6 +35,8 @@ public class Artefact_Script : MonoBehaviour {
 	public int gain_X;
 	public int gain_Y;
 
+    public float temps_gain_Y;
+
 	public Text Text_UI_X;
 	public Text Text_UI_Y;
 
@@ -62,6 +64,7 @@ public class Artefact_Script : MonoBehaviour {
 		Text_UI_Y.text = Y.ToString();
 
 		StartCoroutine(gain_automatique_X());
+        StartCoroutine(gain_automatique_Y());
 
 	}
 
@@ -76,6 +79,16 @@ public class Artefact_Script : MonoBehaviour {
 		}
 		
 	}
+    IEnumerator gain_automatique_Y()
+    {
+        while (this.gameObject)
+        {
+            yield return new WaitForSeconds(temps_gain_Y);
+            Y += gain_Y;
+            Text_UI_Y.text = Y.ToString();
+        }
+
+    }
 
 	public void GainX(int gain)
 	{

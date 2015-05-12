@@ -2,17 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Pose_tour : MonoBehaviour {
+public class Pose_tour : MonoBehaviour
+{
     public GameObject[] tour_rafale;           //Chaque gameobject a un tableau pour renseigner le niveau de la tour en question
     public GameObject[] tour_sniper;
     public GameObject[] tour_canon;
     public GameObject tour_L;
+    public int coutRafale;
+    public int coutCanon;
+    public int coutSniper;
 
     //Quand on instancie la tour on note : tour_rafale[level-1]
 
     private MainCanvas cible_script;
     public Place place_script;
-	public GameObject place_touch;
+    public GameObject place_touch;
 
     //MENU AMELIORATIONS
     public GameObject UIamelio;
@@ -21,7 +25,7 @@ public class Pose_tour : MonoBehaviour {
 
     public void quitter()
     {
-		place_touch.GetComponent<Place>().libre = true;
+        place_touch.GetComponent<Place>().libre = true;
         this.gameObject.SetActive(false);
     }
 
@@ -34,16 +38,16 @@ public class Pose_tour : MonoBehaviour {
     public void createTourSniper(int level)         //Cette fonction permet de créer une tour Sniper d'un niveau dépendant de s'il y a eu une fusion avant son exécution ou non.
     {
         cible_script = (MainCanvas)transform.parent.gameObject.GetComponent(typeof(MainCanvas));
-        GameObject nouvelleTour_sniper = Instantiate(tour_sniper[level-1]) as GameObject;       //On crée la tour Sniper contenue dans le tableau à la case level-1 (pour correspondre au tableau qui commence à 0)
+        GameObject nouvelleTour_sniper = Instantiate(tour_sniper[level - 1]) as GameObject;       //On crée la tour Sniper contenue dans le tableau à la case level-1 (pour correspondre au tableau qui commence à 0)
         nouvelleTour_sniper.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
 
         Tour nouvelleTour = nouvelleTour_sniper.GetComponent<Tour>();                   //On crée un gameobject dans lequel on met la tour que l'on a crée juste avant
         nouvelleTour.panelAmelio = UIamelio;
         nouvelleTour.type = "sniper";                                                   //On attribue le type Sniper à la tour que l'on vient de créer
         nouvelleTour.level = level;                                                     //On attribue un niveau à la tour que l'on vient juste de créer à partir. Ce niveau dépend de s'il y a eu une fusion ou non
-        place_script.                       creation_script.                        plateauTour[place_script.xRow, place_script.yCol] = nouvelleTour;
+        place_script.creation_script.plateauTour[place_script.xRow, place_script.yCol] = nouvelleTour;
         //On accède au script de la tuile PUIS au script de la création du plateau (où sont les variables de positions des tuiles et des tours) PUIS à la position des tours pour attribuer les coordonnées de la nouvelle tour
-        
+
         if (!(level >= 3))          //Si le niveau de la tour créée n'est pas supérieur ou égal au niveau maximum alors on vérifie si une fusion est possible
         {
             checkFusionSup(nouvelleTour, "sniper", level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
@@ -53,8 +57,8 @@ public class Pose_tour : MonoBehaviour {
             checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
 
-        
-		nouvelleTour.place_tour = place_touch;
+
+        nouvelleTour.place_tour = place_touch;
         this.gameObject.SetActive(false);   //Désactive le panel après que tous les tests de fusion aient été effectués
     }
 
@@ -67,32 +71,40 @@ public class Pose_tour : MonoBehaviour {
     public void createTourRafale(int level)         //Cette fonction permet de créer une tour Rafale d'un niveau dépendant de s'il y a eu une fusion avant son exécution ou non.
     {
 
-        cible_script = (MainCanvas)transform.parent.gameObject.GetComponent(typeof(MainCanvas));
-
-
-        GameObject nouvelleTour_rafale = Instantiate(tour_rafale[level - 1]) as GameObject;       //On crée la tour Rafale contenue dans le tableau à la case level-1 (pour correspondre au tableau qui commence à 0)
-        
-        nouvelleTour_rafale.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
-
-        Tour nouvelleTour = nouvelleTour_rafale.GetComponent<Tour>();                   //On crée un gameobject dans lequel on met la tour que l'on a crée juste avant
-        nouvelleTour.panelAmelio = UIamelio;
-        nouvelleTour.type = "rafale";                                                   //On attribue le type Rafale à la tour que l'on vient de créer
-        nouvelleTour.level = level;                                                     //On attribue un niveau à la tour que l'on vient juste de créer à partir. Ce niveau dépend de s'il y a eu une fusion ou non
-
-        place_script.creation_script.plateauTour[place_script.xRow, place_script.yCol] = nouvelleTour;
-        //On accède au script de la tuile PUIS au script de la création du plateau (où sont les variables de positions des tuiles et des tours) PUIS à la position des tours pour attribuer les coordonnées de la nouvelle tour
-
-        if (!(level >= 3))          //Si le niveau de la tour créée n'est pas supérieur ou égal au niveau maximum alors on vérifie si une fusion est possible
+        if (Artefact_Script.instance.X >= coutRafale)      //On vérifie si le joueur a suffisamment de X pour créer une tour
         {
-            checkFusionSup(nouvelleTour, "rafale", level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
-        }
-        else if (level == 3)    //Si la tour créée est de niveau maximum on vérifie si une fusion est possible avec d'autres tours différentes et de niveau maximum
-        {
-            checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
+            Artefact_Script.instance.DepenseX(coutRafale);     //On enlève le coût de la Tour au total de X qu'a le joueur
+
+            cible_script = (MainCanvas)transform.parent.gameObject.GetComponent(typeof(MainCanvas));
+
+
+            GameObject nouvelleTour_rafale = Instantiate(tour_rafale[level - 1]) as GameObject;       //On crée la tour Rafale contenue dans le tableau à la case level-1 (pour correspondre au tableau qui commence à 0)
+
+            nouvelleTour_rafale.transform.position = new Vector3(cible_script.Place_click.transform.position.x, 2.5f, cible_script.Place_click.transform.position.z);   //On place la tour aux coordonnées de la tuile cliquée
+
+            Tour nouvelleTour = nouvelleTour_rafale.GetComponent<Tour>();                   //On crée un gameobject dans lequel on met la tour que l'on a crée juste avant
+            nouvelleTour.panelAmelio = UIamelio;
+            nouvelleTour.type = "rafale";                                                   //On attribue le type Rafale à la tour que l'on vient de créer
+            nouvelleTour.level = level;                                                     //On attribue un niveau à la tour que l'on vient juste de créer à partir. Ce niveau dépend de s'il y a eu une fusion ou non
+
+            place_script.creation_script.plateauTour[place_script.xRow, place_script.yCol] = nouvelleTour;
+            //On accède au script de la tuile PUIS au script de la création du plateau (où sont les variables de positions des tuiles et des tours) PUIS à la position des tours pour attribuer les coordonnées de la nouvelle tour
+
+            if (!(level >= 3))          //Si le niveau de la tour créée n'est pas supérieur ou égal au niveau maximum alors on vérifie si une fusion est possible
+            {
+                checkFusionSup(nouvelleTour, "rafale", level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
+            }
+            else if (level == 3)    //Si la tour créée est de niveau maximum on vérifie si une fusion est possible avec d'autres tours différentes et de niveau maximum
+            {
+                checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
+            }
+
+            nouvelleTour.place_tour = place_touch;
+
+            this.gameObject.SetActive(false);
         }
 
-		nouvelleTour.place_tour = place_touch;
-        this.gameObject.SetActive(false);
+
     }
 
     public void canon()
@@ -123,7 +135,7 @@ public class Pose_tour : MonoBehaviour {
             checkFusionSupL(nouvelleTour, level);      //On vérifie si une fusion est possible à partir de la nouvelle tour avec des tours de son type et de son niveau
         }
         //nouvelleTour.place_tour = place_script.gameObject;
-		nouvelleTour.place_tour = place_touch;
+        nouvelleTour.place_tour = place_touch;
         this.gameObject.SetActive(false);
     }
 
@@ -137,20 +149,20 @@ public class Pose_tour : MonoBehaviour {
         if (tourTrouves.Count >= 3)                     //Si on a trouvé au moins 3 tours similaires alors on peut effectuer une fusion
         {
             Debug.Log("tour Fusionnée !");
-            foreach(Tour tour in tourTrouves)           //Pour chaque tour que l'on a trouvé, on effectue une action
+            foreach (Tour tour in tourTrouves)           //Pour chaque tour que l'on a trouvé, on effectue une action
             {
-				if (tour.place_tour!=null)
-				{
-					tour.place_tour.GetComponent<Place>().libre = true;	   //La place sur laquelle était posée la tour redevient vide
-				}
-				
-                			
-				
+                if (tour.place_tour != null)
+                {
+                    tour.place_tour.GetComponent<Place>().libre = true;	   //La place sur laquelle était posée la tour redevient vide
+                }
+
+
+
                 DestroyImmediate(tour.gameObject);      //On détruit immédiatement (pour ne pas gêner la détection des autres tours) chaque tour trouvée lors du test de fusion
-                            
+
             }
             level++;                                    //On incrémente le niveau de la tour qui a été posée (puis détruite) pour en créer une autre de niveau supérieur
-            switch(typeDeTour)                          //On crée une nouvelle tour d'un type correspondant aux tours fusionnées qui ont été détruites
+            switch (typeDeTour)                          //On crée une nouvelle tour d'un type correspondant aux tours fusionnées qui ont été détruites
             {
                 case "sniper":                          //Si la tour était du type Sniper, on lance la fonction de création de tour avec cette fois-ci un niveau supplémentaire
                     createTourSniper(level);
@@ -185,7 +197,7 @@ public class Pose_tour : MonoBehaviour {
         {
             tourGauche = place_script.creation_script.plateauTour[x - 1, y];           //Correspond à la tour potentiellement présente sur la case à gauche de la tour concernée
         }
-        
+
         if (y - 1 > 0)
         {
             tourHaut = place_script.creation_script.plateauTour[x, y - 1];             //Correspond à la tour potentiellement présente sur la case au dessus de la tour concernée
@@ -195,11 +207,11 @@ public class Pose_tour : MonoBehaviour {
         {
             tourBas = place_script.creation_script.plateauTour[x, y + 1];              //Correspond à la tour potentiellement présente sur la case en dessous de la tour concernée
         }
-        
+
 
         if (tourDroite && tourDroite.type == typeDeTour && tourDroite.level == level)       //Si il y a une tour dans la case à droite de la tour concernée et qu'elle est de même niveau
         {
-            if(tourTrouves.Contains(tourDroite) == false)       //On vérifie que cette tour n'a pas déjà été détectée dans le cadre de ce test de fusion
+            if (tourTrouves.Contains(tourDroite) == false)       //On vérifie que cette tour n'a pas déjà été détectée dans le cadre de ce test de fusion
             {
                 tourTrouves.Add(tourDroite);                    //Si ce n'est pas le cas, on l'ajoute à la liste des tours qui ont déjà été détectées pour la fusion
                 checkFusion(ref tourTrouves, x + 1, y, typeDeTour, level);      //On actualise la liste de tours détectées grâce à REF et on effectue à nouveau le test de fusion à partir de la tour détectée à droite de la tour concernée
@@ -245,12 +257,12 @@ public class Pose_tour : MonoBehaviour {
             Debug.Log("tour L CREEE !");
             foreach (Tour tour in tourTrouves)           //Pour chaque tour que l'on a trouvé, on effectue une action
             {
-				if (tour.place_tour != null)
-				{
-					tour.place_tour.GetComponent<Place>().libre = true;	   //La place sur laquelle était posée la tour redevient vide
-				}
+                if (tour.place_tour != null)
+                {
+                    tour.place_tour.GetComponent<Place>().libre = true;	   //La place sur laquelle était posée la tour redevient vide
+                }
                 DestroyImmediate(tour.gameObject);      //On détruit immédiatement (pour ne pas gêner la détection des autres tours) chaque tour trouvée lors du test de fusion
-            }                                   
+            }
             createTourL();
         }
     }
@@ -302,7 +314,7 @@ public class Pose_tour : MonoBehaviour {
                 checkFusionL(ref tourTrouves, x - 1, y, level);      //On actualise la liste de tours détectées grâce à REF et on effectue à nouveau le test de fusion à partir de la tour détectée à gauche de la tour concernée
             }
         }
-        if (tourBas != null  && tourBas.level == level)                //Si il y a une tour dans la case en dessous de la tour concernée et qu'elle est de même niveau
+        if (tourBas != null && tourBas.level == level)                //Si il y a une tour dans la case en dessous de la tour concernée et qu'elle est de même niveau
         {
             if (tourTrouves.Contains(tourBas) == false)         //On vérifie que cette tour n'a pas déjà été détectée dans le cadre de ce test de fusion
             {
