@@ -97,7 +97,6 @@ public class Tir : MonoBehaviour {
                 //Transform PE = transform.Find("Partie");
                 if (PE != null)
                 {
-                    Debug.Log("trololo");
                     PE.GetComponent<ParticleSystem>().Stop();
                     PE.transform.parent = null;
                 }

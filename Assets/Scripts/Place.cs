@@ -6,8 +6,9 @@ public class Place : MonoBehaviour {
 
     public GameObject Panel_place_prefab; // Le menu de pose
     private GameObject Panel_place;
-    public string layerMaskName = "place";
-    private int layerMaskClic;
+    public string layerToIgnore;
+    public int layerMaskClic;
+    LayerMask layer;
 
     public bool libre;//Si la place n'as pas de tour (true);
     //public bool menu; // Si le menu est affiché
@@ -55,7 +56,8 @@ public class Place : MonoBehaviour {
         material = this.GetComponent<Renderer>().material;
         libre = true;
         //menu = false;
-        layerMaskClic = LayerMask.NameToLayer(layerMaskName);
+        layerMaskClic = LayerMask.NameToLayer(layerToIgnore);
+       
         mouseOver = true;
         fusionné = false;
         couleur = gameObject.GetComponent<Renderer>().material.color;
@@ -144,8 +146,9 @@ public class Place : MonoBehaviour {
             //hit est la variable dans laquelle on stock le collider rencontré
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))  //Si on touche quelquechose...          
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMaskClic))  //Si on touche quelquechose...          
             {
+
                 if (hit.collider.tag == "place" && hit.collider.gameObject == this.gameObject && libre == true)   //... Et que cette chose est taggée comme une "place" ...
                 {
                     if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
