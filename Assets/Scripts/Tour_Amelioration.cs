@@ -6,12 +6,13 @@ public class Tour_Amelioration : MonoBehaviour {
     Tour tour;
     private GameObject canvas;
     int layerMaskClic;
+    //public bool pasAmelioree;
 
 	// Use this for initialization
 	void Start () {
         layerMaskClic = LayerMask.NameToLayer("Tours");
         tour = this.transform.parent.GetComponent<Tour>();
-
+        //pasAmelioree = true;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +44,7 @@ public class Tour_Amelioration : MonoBehaviour {
 
                     }
                 }
-                else if (hit.collider.tag != "Tour" && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+                else if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                 {
                     if (tour.panelAmelio != null)
                     {

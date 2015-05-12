@@ -153,16 +153,6 @@ public class Place : MonoBehaviour {
                 {
                     if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                     {
-                        /*Canvas = GameObject.FindWithTag("Canvas");
-                        Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
-                        Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click
-                        panelUI.GetComponent<Pose_tour>().place_script = this;
-						panelUI.GetComponent<Pose_tour>().place_touch = this.gameObject;
-                        panelUI.SetActive(true);
-                        Vector3 vecPozUI = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-                        panelUI.transform.position = Camera.main.WorldToScreenPoint(vecPozUI);
-                        libre = false;
-                        */
                         Canvas = GameObject.FindWithTag("Canvas");
                         Canvas_script = (MainCanvas)Canvas.GetComponent(typeof(MainCanvas));
                         Canvas_script.Place_click = this.gameObject; // On place une copie de l'objet touché (une place) dans la variable gameObject Place_click

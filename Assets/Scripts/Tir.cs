@@ -144,7 +144,6 @@ public class Tir : MonoBehaviour {
             {
                 canon_explose = true;
                 StartCoroutine(tir_canon());
-                
             }
         }
         else
