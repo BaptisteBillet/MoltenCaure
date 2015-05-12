@@ -14,7 +14,7 @@ public class Ennemy_type : Ennemy
 		base.Start();
 
         speed = 5;
-        vie = 100;
+        vie = 40;
     }
 
 

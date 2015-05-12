@@ -12,7 +12,7 @@ public class Ennemy_boostaure : Ennemy
 
     void Start()
     {
-        vie = 100;
+        vie = 50;
         boost_speed = 5;
     }
 
