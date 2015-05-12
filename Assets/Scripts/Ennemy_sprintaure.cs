@@ -8,7 +8,8 @@ public class Ennemy_sprintaure : Ennemy
 
     void Start()
     {
-        vie = 50;
+        speed = 8;
+        vie = 25;
     }
 
 
