@@ -27,7 +27,8 @@ public class Ennemy : MonoBehaviour {
 	public bool IsGel;
 	public int gel_time;
 	public bool IsRadia;
-	public int radia_time;
+	public int Radia_pourcentage;
+	public int Degat_Radia=5;
 
 	public virtual void Start()
 	{
@@ -65,6 +66,18 @@ public class Ennemy : MonoBehaviour {
 
 	}
 
+	public void SetDegat(int degat)
+	{
+		if(Radia_pourcentage>0)
+		{
+			vie -= degat * (Radia_pourcentage * Degat_Radia);
+		}
+		else
+		{
+			vie -= degat;
+		}
+	}
+
 	public IEnumerator Poison(int degats, int time)
 	{
 		if(!IsPoison)
@@ -73,7 +86,7 @@ public class Ennemy : MonoBehaviour {
 			poison_time = 0;
 			while (poison_time < time)
 			{
-				vie -= degats;
+				SetDegat(degats);
 				yield return new WaitForSeconds(1);
 				poison_time++;
 			}
@@ -108,23 +121,14 @@ public class Ennemy : MonoBehaviour {
 	}
 	public IEnumerator Radia(int time)
 	{
-		if (!IsRadia)
-		{
-			IsRadia = true;
-			radia_time = 0;
+			Radia_pourcentage++;
+			int radia_time = 0;
 			while (radia_time != time)
 			{
-				IsRadia = true;
 				yield return new WaitForSeconds(1);
-				radia_time = 0;
+				radia_time++;
 			}
-			IsRadia = false;
-		}
-		else
-		{
-			radia_time = 0;
-		}
-
+			Radia_pourcentage--;
 	}
 
 }

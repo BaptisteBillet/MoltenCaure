@@ -91,7 +91,7 @@ public class Tir : MonoBehaviour {
                 cible_script = (Ennemy)cible.GetComponent(typeof(Ennemy));
 
                 //On applique les dégâts à la cible
-                cible_script.vie -= degats;
+				cible_script.SetDegat(degats);
 
                 //On permet aux particules de finir leur cycle
                 //Transform PE = transform.Find("Partie");
@@ -100,10 +100,6 @@ public class Tir : MonoBehaviour {
                     PE.GetComponent<ParticleSystem>().Stop();
                     PE.transform.parent = null;
                 }
-
-
-
-                
 
                 //Le tir se détruit à l'impact
                 Destroy(this.gameObject);
@@ -119,7 +115,7 @@ public class Tir : MonoBehaviour {
         for (int i = 0; i < file.Count; i++) // Pour chaque ennemis dans la liste, lui infligé les dégats du tir
         {
             cible_script = file[i].GetComponent<Ennemy>();
-            cible_script.vie -= degats;
+			cible_script.SetDegat(degats);
             Debug.Log("Explosion_canon");
         }
 
