@@ -23,7 +23,7 @@ public class Ennemy : MonoBehaviour {
 
 
 
-	public virtual void Start()
+	public virtual void Start()     //Virtual permet à la fonction d'être appelée par ses enfants
 	{
 		//On attribue le navmesh à l'ennemi créé
 		nav_ennemy = this.gameObject.GetComponent<NavMeshAgent>();
