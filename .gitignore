@@ -34,3 +34,4 @@ Assets/Animations/Jouer.controller.meta
 *.meta
 Assets/Menu_Principal/LoadNewScene.cs.meta
 Assets/Menu_Principal/LoadNewScene.cs.meta
+Assets/Particle Playground/Scripts/Editor/PlaygroundCreatePresetWindowC.cs
