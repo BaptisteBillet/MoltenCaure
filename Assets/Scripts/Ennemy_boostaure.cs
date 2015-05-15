@@ -8,10 +8,11 @@ public class Ennemy_boostaure : Ennemy
     private Ennemy ennemy_script;
 
     private float boost_speed;
-    
 
-    void Start()
+
+    public override void Start()
     {
+        base.Start();
         vie = 50;
         boost_speed = 5;
     }

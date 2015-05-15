@@ -5,8 +5,9 @@ using System.Collections;
 
 public class Ennemy_gropaure : Ennemy 
 {
-    void Start()
+    public override void Start()
     {
+        base.Start();
         vie = 100;
         speed = 2;
     }

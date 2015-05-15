@@ -111,7 +111,6 @@ public class Tour : MonoBehaviour {
             {
                 prefab_tir_script = (Tir)prefab_tir.GetComponent(typeof(Tir));
 
-
                 //Le projectile vise l'ennemie numero 1 (en position zéro dans la liste)
                 prefab_tir_script.cible = file[0].gameObject;
 
@@ -122,6 +121,8 @@ public class Tour : MonoBehaviour {
                 }
 
                 //La tour tir un nouveau projectile
+                //Vector3 pos = new Vector3(transform.position.x + Random.Range(-1, 1), transform.position.y + Random.Range(1, 3), transform.position.z);
+                //Instantiate(prefab_tir, pos, transform.rotation);
                 Instantiate(prefab_tir, transform.position, transform.rotation);
 
                 //Maintenant on attend le couldown avant de relancer un projectile
@@ -172,7 +173,6 @@ public class Tour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-       
 
         if(file.Count>0) //Si il y a des éléments dans le tableau
         {

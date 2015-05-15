@@ -17,7 +17,7 @@ public class Ennemy_type : Ennemy
         vie = 40;
     }
 
-
+    /*
     public override void Update()
     {
 		base.Update();
@@ -30,8 +30,8 @@ public class Ennemy_type : Ennemy
         {
             this.GetComponent<NavMeshAgent>().speed = speed;
         }
-		*/
-    }
+
+    }*/
 
 
     //POUR LES BOOSTAURES : tester la collision sur un ennemi AUTRE QUE BOOSTAURE avec un gameobject rond disposé autour d'un boostaure.

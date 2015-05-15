@@ -92,7 +92,6 @@ public class Tir : MonoBehaviour {
 
                 //On applique les dégâts à la cible
 				cible_script.SetDegat(degats);
-
                 //On permet aux particules de finir leur cycle
                 //Transform PE = transform.Find("Partie");
                 if (PE != null)
