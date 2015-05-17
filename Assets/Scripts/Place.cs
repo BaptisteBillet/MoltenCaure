@@ -56,7 +56,7 @@ public class Place : MonoBehaviour {
         material = this.GetComponent<Renderer>().material;
         libre = true;
         //menu = false;
-        layerMaskClic = LayerMask.NameToLayer(layerToIgnore);
+        layerMaskClic = LayerMask.NameToLayer("Tours");
        
         mouseOver = true;
         fusionné = false;

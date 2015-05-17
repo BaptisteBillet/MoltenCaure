@@ -42,9 +42,13 @@ public class Tour : MonoBehaviour {
     public MainCanvas Canvas_script;
     public GameObject panelAmelio;
 
+	
+
     void Start()
     {
-       
+
+		
+
         mouseOver = true;
 
         //On établi l'accès entre ce script et celui du GameObject prefab_Tir
@@ -57,19 +61,7 @@ public class Tour : MonoBehaviour {
         mode_attaque = false;
     }
 
-    void OnMouseOver()
-    {
-        if (mouseOver == true)
-        {
-            //Debug.Log(xRow + " " + yCol + " " + libre);
-            mouseOver = false;
-        }
-    }
-
-    void OnMouseExit()
-    {
-        mouseOver = true;
-    }
+   
 
 
 
