@@ -15,9 +15,9 @@ public class Tour : MonoBehaviour {
     public GameObject prefab_tir;
     // Accès au script du GameObject
     private Tir prefab_tir_script;
-
+	private GameObject tir_instance;
     // File d'attente de la tour. Les ennemis qui rentre dans la zone de detection y sont stockés
-    List<GameObject> file = new List<GameObject>();
+    public List<GameObject> file = new List<GameObject>();
 
     // Caractéristiques de la tour
     public float cooldown; //Le temps entre deux tirs en secondes
@@ -42,12 +42,13 @@ public class Tour : MonoBehaviour {
     public MainCanvas Canvas_script;
     public GameObject panelAmelio;
 
+	public bool IsPoison;
+	public bool IsGel;
+	public bool IsRadiation;
 	
 
     void Start()
     {
-
-		
 
         mouseOver = true;
 
@@ -69,7 +70,7 @@ public class Tour : MonoBehaviour {
     void OnTriggerEnter(Collider ennemy)
     {
 
-        if(ennemy.tag=="ennemy")
+		if (ennemy.tag == "ennemy" || ennemy.tag == "boostaure")
         {
 
             //On ajoute l'ennemi qui est detecté dans la file d'attente de la tour
@@ -79,7 +80,7 @@ public class Tour : MonoBehaviour {
 
     void OnTriggerExit(Collider ennemy)
     {
-        if (ennemy.tag == "ennemy")
+		if (ennemy.tag == "ennemy" || ennemy.tag == "boostaure")
         {
             for (int i = 0; i < file.Count;i++ )
             {
@@ -115,8 +116,14 @@ public class Tour : MonoBehaviour {
                 //La tour tir un nouveau projectile
                 //Vector3 pos = new Vector3(transform.position.x + Random.Range(-1, 1), transform.position.y + Random.Range(1, 3), transform.position.z);
                 //Instantiate(prefab_tir, pos, transform.rotation);
-                Instantiate(prefab_tir, transform.position, transform.rotation);
 
+
+				
+
+                tir_instance=Instantiate(prefab_tir, transform.position, transform.rotation)as GameObject;
+				if (IsPoison) { tir_instance.GetComponent<Tir>().IsPoison = true; }
+				if (IsGel) { tir_instance.GetComponent<Tir>().IsGel = true; }
+				if (IsRadiation) { tir_instance.GetComponent<Tir>().IsRadiation = true; }
                 //Maintenant on attend le couldown avant de relancer un projectile
                 yield return new WaitForSeconds(cooldown);
             }
@@ -184,6 +191,10 @@ public class Tour : MonoBehaviour {
                 }
 
             }
+			else
+			{
+				refresh();
+			}
 
         }
 	}

@@ -30,8 +30,23 @@ public class Ennemy : MonoBehaviour {
 	public int Radia_pourcentage;
 	public int Degat_Radia=5;
 
+	public int degatPoison=1;
+	public int timePoison=10;
+	public int slowGel=2;
+	public int timeGel=2;
+	public int timeRadiation=10;
+
+
+
 	public virtual void Start()     //Virtual permet à la fonction d'être appelée par ses enfants
 	{
+
+		degatPoison = 1;
+		timePoison = 10;
+		slowGel = 1;
+		timeGel = 2;
+		timeRadiation = 10;
+
 		base_speed = speed;
 		//On attribue le navmesh à l'ennemi créé
 		nav_ennemy = this.gameObject.GetComponent<NavMeshAgent>();
@@ -61,12 +76,13 @@ public class Ennemy : MonoBehaviour {
 		else 
 		{
 			//On attribue la destination à l'ennemi créé
+			
 			nav_ennemy.destination = Artefact_Script.instance.artefact.transform.position;
 		}
 
 	}
 
-	public void SetDegat(int degat)
+	public void SetDegat(int degat, string stat="")
 	{
 		if(Radia_pourcentage>0)
 		{
@@ -76,17 +92,32 @@ public class Ennemy : MonoBehaviour {
 		{
 			vie -= degat;
 		}
+
+		switch(stat)
+		{ 
+			case "Poison":
+				StartCoroutine(Poison());
+				break;
+			case "Gel":
+				StartCoroutine(Gel());
+				break;
+			case "Radiation":
+				StartCoroutine(Radia());
+				break;
+		}
+
+
 	}
 
-	public IEnumerator Poison(int degats, int time)
+	public IEnumerator Poison()
 	{
 		if(!IsPoison)
 		{
 			IsPoison = true;
 			poison_time = 0;
-			while (poison_time < time)
+			while (poison_time < timePoison)
 			{
-				SetDegat(degats);
+				SetDegat(degatPoison);
 				yield return new WaitForSeconds(1);
 				poison_time++;
 			}
@@ -98,19 +129,21 @@ public class Ennemy : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator Gel(int slow, int time)
+	public IEnumerator Gel()
 	{
 		if(!IsGel)
 		{
 			IsGel = true;
 			gel_time = 0;
-			while(gel_time!=time)
+			while(gel_time!=timeGel)
 			{
-				speed -= slow;
+				speed -= slowGel;
+				nav_ennemy.speed = speed;
 				yield return new WaitForSeconds(1);
 				gel_time++;
 			}
 			speed = base_speed;
+			nav_ennemy.speed = speed;
 			IsGel = false;
 		}
 		else
@@ -119,11 +152,11 @@ public class Ennemy : MonoBehaviour {
 		}
 		
 	}
-	public IEnumerator Radia(int time)
+	public IEnumerator Radia()
 	{
 			Radia_pourcentage++;
 			int radia_time = 0;
-			while (radia_time != time)
+			while (radia_time != timeRadiation)
 			{
 				yield return new WaitForSeconds(1);
 				radia_time++;
