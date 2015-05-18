@@ -167,7 +167,8 @@ public class Tir : MonoBehaviour {
 			SetDamage();
             Debug.Log("Explosion_canon");
         }
-
+        ParticleSystem PE_Hit = Instantiate(particule_Hit) as ParticleSystem;
+        PE_Hit.transform.position = transform.position;
         Destroy(this.gameObject); //on détruit cet objet, il n'a plus d'utilité
 		yield return null;
 
