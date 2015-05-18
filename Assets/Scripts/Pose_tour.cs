@@ -71,7 +71,6 @@ public class Pose_tour : MonoBehaviour
         if (Artefact_Script.instance.X >= coutRafale)      //On vérifie si le joueur a suffisamment de X pour créer une tour
         {
             Artefact_Script.instance.DepenseX(coutRafale);     //On enlève le coût de la Tour au total de X qu'a le joueur
-            Debug.Log("shake your body");
             createTourRafale(1);        //On lance la fonction de création de tour Rafale de niveau 1
             
             //Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
@@ -161,12 +160,9 @@ public class Pose_tour : MonoBehaviour
                 {
                     tour.place_tour.GetComponent<Place>().libre = true;	   //La place sur laquelle était posée la tour redevient vide
                 }
-
-
-
                 DestroyImmediate(tour.gameObject);      //On détruit immédiatement (pour ne pas gêner la détection des autres tours) chaque tour trouvée lors du test de fusion
-
             }
+
             level++;                                    //On incrémente le niveau de la tour qui a été posée (puis détruite) pour en créer une autre de niveau supérieur
             switch (typeDeTour)                          //On crée une nouvelle tour d'un type correspondant aux tours fusionnées qui ont été détruites
             {
@@ -359,4 +355,5 @@ public class Pose_tour : MonoBehaviour
 
         this.gameObject.SetActive(false);   //Désactive le panel après que tous les tests de fusion aient été effectués
     }
+
 }

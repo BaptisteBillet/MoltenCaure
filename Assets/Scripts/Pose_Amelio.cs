@@ -13,7 +13,6 @@ public class Pose_Amelio : MonoBehaviour {
         //tour_touch.GetComponent<Tour>. BOOL AMELIORATION POSEE Dire que la tour peut être améliorée
         this.gameObject.SetActive(false);
     }
-
     //AJOUTER LES DIFFERENTES FONCTIONS DES DIFFERENTS BOUTONS POUR LES DIFFERENTES AMELIORATIONS
 	
 
