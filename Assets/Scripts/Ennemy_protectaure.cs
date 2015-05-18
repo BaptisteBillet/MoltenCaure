@@ -6,9 +6,10 @@ using System.Collections;
 public class Ennemy_protectaure : Ennemy 
 {
 
-    void Start()
+	public override void Start()
     {
-        vie = 100;
+		base.Start();
+		this.nav_ennemy.speed = speed;
     }
 
 

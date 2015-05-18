@@ -12,9 +12,7 @@ public class Ennemy_type : Ennemy
     public override void Start()
     {
 		base.Start();
-
-        speed = 5;
-        vie = 40;
+		this.nav_ennemy.speed = speed;
     }
 
     /*

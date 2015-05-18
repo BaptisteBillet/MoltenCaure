@@ -14,9 +14,7 @@ public class Ennemy_mordaure : Ennemy
     public override void Start()
     {
         base.Start();
-        vie = 60;
-        speed = 5;
-        
+     
        
         StartCoroutine(fog());
     }
