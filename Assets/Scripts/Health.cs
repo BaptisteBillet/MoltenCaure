@@ -24,7 +24,7 @@ public void Update ()
         placement = ((((int)ennemy_script.vie* 100) / life_max) * pixel_pourcentage)+10;
         if (placement < 0.000001) { placement = 0; }
         vie.transform.localPosition = new Vector3(placement*-1, 0, 0);
-        vie.transform.eulerAngles = Vector3.zero;
+		vie.transform.eulerAngles = new Vector3(35.0f, 0f, 0f);
     }
 
 
