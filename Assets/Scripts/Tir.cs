@@ -42,8 +42,14 @@ public class Tir : MonoBehaviour {
 
     public float temps_explosion_canon;
 
+	public float epsilon=1;
+	float distance;
+	bool explosion;
     void Start()
     {
+
+		epsilon = 1;
+
         if(canon)
         {
             cibleTirCanon = cible.transform.position;
@@ -88,32 +94,37 @@ public class Tir : MonoBehaviour {
             if (touch.gameObject == cible) //Si la chose que le projectile à touché est bien la cible
             {
 
-                //On établi l'accès entre ce script et celui du GameObject cible
-                cible_script = (Ennemy)cible.GetComponent(typeof(Ennemy));
-
-                ParticleSystem PE_Hit = Instantiate(particule_Hit) as ParticleSystem;
-                PE_Hit.transform.position = transform.position;
-                //On applique les dégâts à la cible
-				cible_script.SetDegat(degats);
-                //On permet aux particules de finir leur cycle
-                //Transform PE = transform.Find("Partie");
-                /*if (PE != null)
-                {
-                    PE.GetComponent<ParticleSystem>().Stop();
-                    PE.transform.parent = null;
-                }*/
-
-                //Le tir se détruit à l'impact
-                Destroy(this.gameObject);
+				attack_normal();
             }
         }
 
     }
 
+	public void attack_normal()
+	{
+		//On établi l'accès entre ce script et celui du GameObject cible
+		cible_script = (Ennemy)cible.GetComponent(typeof(Ennemy));
+
+		ParticleSystem PE_Hit = Instantiate(particule_Hit) as ParticleSystem;
+		PE_Hit.transform.position = transform.position;
+		//On applique les dégâts à la cible
+		cible_script.SetDegat(degats);
+		//On permet aux particules de finir leur cycle
+		//Transform PE = transform.Find("Partie");
+		/*if (PE != null)
+		{
+			PE.GetComponent<ParticleSystem>().Stop();
+			PE.transform.parent = null;
+		}*/
+
+		//Le tir se détruit à l'impact
+		Destroy(this.gameObject);
+	}
+
     IEnumerator tir_canon()
     {
 
-        yield return new WaitForSeconds(temps_explosion_canon);
+        //yield return new WaitForSeconds(temps_explosion_canon);
         for (int i = 0; i < file.Count; i++) // Pour chaque ennemis dans la liste, lui infligé les dégats du tir
         {
             cible_script = file[i].GetComponent<Ennemy>();
@@ -122,7 +133,7 @@ public class Tir : MonoBehaviour {
         }
 
         Destroy(this.gameObject); //on détruit cet objet, il n'a plus d'utilité
-
+		yield return null;
 
     }
 
@@ -143,9 +154,14 @@ public class Tir : MonoBehaviour {
                 canon_explose = true;
                 StartCoroutine(tir_canon());
             }
+
+			distance = Vector3.Distance(cibleTirCanon, this.transform.position);
+
+
         }
         else
         {
+			distance = Vector3.Distance(cible.transform.position, this.transform.position);
             if (cible != null) //Si la cible existe 
             {
                 //On se déplace vers la cible
@@ -160,7 +176,19 @@ public class Tir : MonoBehaviour {
             }
         }
 
-        
+
+		if(distance<epsilon && explosion==false)
+		{
+			explosion = true;
+			if(canon)
+			{
+				StartCoroutine(tir_canon());
+			}
+			else
+			{
+				attack_normal();
+			}
+		}
 
 	}
 }
