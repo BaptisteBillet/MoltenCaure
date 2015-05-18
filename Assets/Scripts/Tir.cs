@@ -12,6 +12,7 @@ public class Tir : MonoBehaviour {
 
     // La cible fournit par la Tour
     public GameObject cible;
+    public ParticleSystem particule_Hit;
 
     // La cible fournit par la Tour Canon
     public Vector3 cibleTirCanon; 
@@ -90,6 +91,8 @@ public class Tir : MonoBehaviour {
                 //On établi l'accès entre ce script et celui du GameObject cible
                 cible_script = (Ennemy)cible.GetComponent(typeof(Ennemy));
 
+                ParticleSystem PE_Hit = Instantiate(particule_Hit) as ParticleSystem;
+                PE_Hit.transform.position = transform.position;
                 //On applique les dégâts à la cible
 				cible_script.SetDegat(degats);
                 //On permet aux particules de finir leur cycle
