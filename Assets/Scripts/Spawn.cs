@@ -17,7 +17,7 @@ public class Spawn : MonoBehaviour
     //Informations concernant les vagues à générer
     public List<GameObject> vague1;
     public List<GameObject> vague2;
-    public List<GameObject> vague3;
+    public List<GameObject> vague3; 
     public List<GameObject> vague4;
     public List<GameObject> vague5;
     public List<GameObject> vague6;
@@ -25,7 +25,7 @@ public class Spawn : MonoBehaviour
 	public List<GameObject> vague8;
 
     public List<List<GameObject>> vagues;
-
+	
     //Temps pour le spawn
     public float interval;
     public float frequenceSpawnDifferent;
@@ -49,6 +49,7 @@ public class Spawn : MonoBehaviour
 	public bool new_vague;
     void Start()
     {
+
         //Initialisation des variables
         vagues = new List<List<GameObject>>(new List<GameObject>[]{vague1, vague2, vague3, vague4, vague5, vague6, vague7,vague8});
         valueTimerNextWave = timerNextWave;
@@ -65,14 +66,13 @@ public class Spawn : MonoBehaviour
         //StartCoroutine(calcul_new_vague());
 	}
 
-
     void Update()
     {
         // time to spawn the next one?
         timeLeft -= Time.deltaTime;
         timerNextWave -= Time.deltaTime;
-
-        text_NextWave.text = "New Wave in " + Mathf.Round(timerNextWave).ToString() + " sec";
+		
+        //text_NextWave.text = "New Wave in " + Mathf.Round(timerNextWave).ToString() + " sec";
 
         //Fréquence de spawn d'un ennemi
         if (timeLeft <= 0.0f && vagueTerminee == false)
