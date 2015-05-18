@@ -94,11 +94,11 @@ public class Tir : MonoBehaviour {
 				cible_script.SetDegat(degats);
                 //On permet aux particules de finir leur cycle
                 //Transform PE = transform.Find("Partie");
-                if (PE != null)
+                /*if (PE != null)
                 {
                     PE.GetComponent<ParticleSystem>().Stop();
                     PE.transform.parent = null;
-                }
+                }*/
 
                 //Le tir se détruit à l'impact
                 Destroy(this.gameObject);

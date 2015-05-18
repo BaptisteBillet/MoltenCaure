@@ -31,8 +31,12 @@ public class Pose_tour : MonoBehaviour
 
     public void sniper()            //Se produit lorsqu'on clique sur le bouton de pose de tour Sniper
     {
-        createTourSniper(1);        //On lance la fonction de création de tour Sniper de niveau 1
-        Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
+        if (Artefact_Script.instance.X >= coutSniper)
+        {
+            Artefact_Script.instance.DepenseX(coutSniper);     //On enlève le coût de la Tour au total de X qu'a le joueur
+            createTourSniper(1);        //On lance la fonction de création de tour Sniper de niveau 1
+            Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
+        }
     }
 
     public void createTourSniper(int level)         //Cette fonction permet de créer une tour Sniper d'un niveau dépendant de s'il y a eu une fusion avant son exécution ou non.
@@ -64,17 +68,18 @@ public class Pose_tour : MonoBehaviour
 
     public void rafale()            //Se produit lorsqu'on clique sur le bouton de pose de tour Rafale
     {
-        createTourRafale(1);        //On lance la fonction de création de tour Rafale de niveau 1
-        Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
+        if (Artefact_Script.instance.X >= coutRafale)      //On vérifie si le joueur a suffisamment de X pour créer une tour
+        {
+            Artefact_Script.instance.DepenseX(coutRafale);     //On enlève le coût de la Tour au total de X qu'a le joueur
+            Debug.Log("shake your body");
+            createTourRafale(1);        //On lance la fonction de création de tour Rafale de niveau 1
+            
+            //Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
+        }
     }
 
     public void createTourRafale(int level)         //Cette fonction permet de créer une tour Rafale d'un niveau dépendant de s'il y a eu une fusion avant son exécution ou non.
     {
-
-        if (Artefact_Script.instance.X >= coutRafale)      //On vérifie si le joueur a suffisamment de X pour créer une tour
-        {
-            Artefact_Script.instance.DepenseX(coutRafale);     //On enlève le coût de la Tour au total de X qu'a le joueur
-
             cible_script = (MainCanvas)transform.parent.gameObject.GetComponent(typeof(MainCanvas));
 
 
@@ -102,15 +107,16 @@ public class Pose_tour : MonoBehaviour
             nouvelleTour.place_tour = place_touch;
 
             this.gameObject.SetActive(false);
-        }
-
-
     }
 
     public void canon()
     {
-        createTourCanon(1);        //On lance la fonction de création de tour Canon de niveau 1
-        Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
+        if (Artefact_Script.instance.X >= coutCanon)      //On vérifie si le joueur a suffisamment de X pour créer une tour
+        {
+            Artefact_Script.instance.DepenseX(coutCanon);     //On enlève le coût de la Tour au total de X qu'a le joueur
+            createTourCanon(1);        //On lance la fonction de création de tour Canon de niveau 1
+            Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
+        }
     }
 
     public void createTourCanon(int level)         //Cette fonction permet de créer une tour Canon d'un niveau dépendant de s'il y a eu une fusion avant son exécution ou non.
