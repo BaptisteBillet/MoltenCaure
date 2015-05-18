@@ -13,10 +13,11 @@ public class Ennemy_mordaure : Ennemy
 
     public override void Start()
     {
+        base.Start();
         vie = 60;
         speed = 5;
         
-        base.Start();
+       
         StartCoroutine(fog());
     }
     IEnumerator fog()
