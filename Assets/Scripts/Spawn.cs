@@ -49,7 +49,6 @@ public class Spawn : MonoBehaviour
 	public bool new_vague;
     void Start()
     {
-
         //Initialisation des variables
         vagues = new List<List<GameObject>>(new List<GameObject>[]{vague1, vague2, vague3, vague4, vague5, vague6, vague7,vague8});
         valueTimerNextWave = timerNextWave;
@@ -60,7 +59,6 @@ public class Spawn : MonoBehaviour
 
 	IEnumerator calcul_new_vague ()
 	{
-		
         yield return new WaitForSeconds(5);
         new_vague = true;
         //StartCoroutine(calcul_new_vague());

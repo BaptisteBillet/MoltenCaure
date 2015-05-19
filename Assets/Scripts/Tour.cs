@@ -15,7 +15,7 @@ public class Tour : MonoBehaviour {
     public GameObject prefab_tir;
     // Accès au script du GameObject
     private Tir prefab_tir_script;
-
+	private GameObject tir_instance;
     // File d'attente de la tour. Les ennemis qui rentre dans la zone de detection y sont stockés
     public List<GameObject> file = new List<GameObject>();
 
@@ -46,11 +46,13 @@ public class Tour : MonoBehaviour {
 	public bool IsGel;
 	public bool IsRadiation;
 
+
     //affichage portee
     public SphereCollider portee;
 
     public GameObject sphere_prefab;
     private GameObject sphere_instance;
+
 	
 
     void Start()
@@ -129,12 +131,21 @@ public class Tour : MonoBehaviour {
                 //Instantiate(prefab_tir, pos, transform.rotation);
 
 
+
 				if (IsPoison) { prefab_tir_script.IsPoison=true; }
 				if (IsGel) { prefab_tir_script.IsGel=true; }
 				if (IsRadiation) { prefab_tir_script.IsRadiation = true; }
 
                 Instantiate(prefab_tir, transform.position, transform.rotation);
 
+
+
+				
+
+                tir_instance=Instantiate(prefab_tir, transform.position, transform.rotation)as GameObject;
+				if (IsPoison) { tir_instance.GetComponent<Tir>().IsPoison = true; }
+				if (IsGel) { tir_instance.GetComponent<Tir>().IsGel = true; }
+				if (IsRadiation) { tir_instance.GetComponent<Tir>().IsRadiation = true; }
                 //Maintenant on attend le couldown avant de relancer un projectile
                 yield return new WaitForSeconds(cooldown);
             }
@@ -215,6 +226,10 @@ public class Tour : MonoBehaviour {
                 }
 
             }
+			else
+			{
+				refresh();
+			}
 
         }
 	}
