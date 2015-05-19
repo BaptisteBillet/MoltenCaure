@@ -45,6 +45,11 @@ public class Tir : MonoBehaviour {
 	public float epsilon=1;
 	float distance;
 	bool explosion;
+
+	public bool IsPoison=false;
+	public bool IsGel=false;
+	public bool IsRadiation=false;
+
     void Start()
     {
 
@@ -108,18 +113,49 @@ public class Tir : MonoBehaviour {
 		ParticleSystem PE_Hit = Instantiate(particule_Hit) as ParticleSystem;
 		PE_Hit.transform.position = transform.position;
 		//On applique les dégâts à la cible
-		cible_script.SetDegat(degats);
-		//On permet aux particules de finir leur cycle
-		//Transform PE = transform.Find("Partie");
-		/*if (PE != null)
-		{
-			PE.GetComponent<ParticleSystem>().Stop();
-			PE.transform.parent = null;
-		}*/
+		SetDamage();
 
 		//Le tir se détruit à l'impact
 		Destroy(this.gameObject);
 	}
+
+
+	public void SetDamage()
+	{
+		if(IsPoison==true)
+		{
+			cible_script.SetDegat(degats, "Poison");
+		}
+		else
+		{
+			if (IsGel == true)
+			{
+				cible_script.SetDegat(degats, "Gel");
+			}
+			else
+			{
+				if (IsRadiation == true)
+				{
+					cible_script.SetDegat(degats,"Radiation");
+				}
+				else
+				{
+					if (IsPoison == false && IsGel == false && IsRadiation == false)
+					{
+						cible_script.SetDegat(degats);
+					}
+					
+				}
+			}
+		}
+		
+		
+
+
+
+		
+	}
+
 
     IEnumerator tir_canon()
     {
@@ -128,7 +164,7 @@ public class Tir : MonoBehaviour {
         for (int i = 0; i < file.Count; i++) // Pour chaque ennemis dans la liste, lui infligé les dégats du tir
         {
             cible_script = file[i].GetComponent<Ennemy>();
-			cible_script.SetDegat(degats);
+			SetDamage();
             Debug.Log("Explosion_canon");
         }
 
@@ -141,6 +177,11 @@ public class Tir : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
+
+
+
+		
+
         if (cibleTirCanon != null)
         {
             GetDestination = true;
@@ -148,6 +189,13 @@ public class Tir : MonoBehaviour {
 
         if (canon==true) //Si le tir provient de la tour canon
         {
+
+
+			if (cibleTirCanon == null)
+			{
+				Destroy(this.gameObject);
+			}
+
             transform.position = Vector3.Lerp(transform.position, cibleTirCanon, delay * Time.deltaTime * acceleration); // Celui ci se déplace vers une coordonnée mais pas vers un ennemis
             if (this.transform.position == cibleTirCanon && canon_explose==false) // Une fois le tir arrivé au coordonées
             {
@@ -161,19 +209,27 @@ public class Tir : MonoBehaviour {
         }
         else
         {
-			distance = Vector3.Distance(cible.transform.position, this.transform.position);
-            if (cible != null) //Si la cible existe 
-            {
-                //On se déplace vers la cible
-                transform.position = Vector3.Lerp(transform.position, cible.transform.position, delay * Time.deltaTime * acceleration);
-                //On la regarde en avançant
-                transform.LookAt(cible.transform);
-                
-            }
-            else //Si la cible est détruite et que le tir est déjà lancé
-            {
-                Destroy(this.gameObject); //on détruit cet objet, il n'a plus d'utilité
-            }
+			if (cible == null)
+			{
+				Destroy(this.gameObject);
+			}
+			if(cible!=null)
+			{
+				distance = Vector3.Distance(cible.transform.position, this.transform.position);
+				if (cible != null) //Si la cible existe 
+				{
+					//On se déplace vers la cible
+					transform.position = Vector3.Lerp(transform.position, cible.transform.position, delay * Time.deltaTime * acceleration);
+					//On la regarde en avançant
+					transform.LookAt(cible.transform);
+
+				}
+				else //Si la cible est détruite et que le tir est déjà lancé
+				{
+					Destroy(this.gameObject); //on détruit cet objet, il n'a plus d'utilité
+				}
+			}
+			
         }
 
 

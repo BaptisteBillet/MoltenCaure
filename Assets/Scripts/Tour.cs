@@ -17,7 +17,7 @@ public class Tour : MonoBehaviour {
     private Tir prefab_tir_script;
 
     // File d'attente de la tour. Les ennemis qui rentre dans la zone de detection y sont stockés
-    List<GameObject> file = new List<GameObject>();
+    public List<GameObject> file = new List<GameObject>();
 
     // Caractéristiques de la tour
     public float cooldown; //Le temps entre deux tirs en secondes
@@ -42,12 +42,19 @@ public class Tour : MonoBehaviour {
     public MainCanvas Canvas_script;
     public GameObject panelAmelio;
 
+	public bool IsPoison;
+	public bool IsGel;
+	public bool IsRadiation;
+
+    //affichage portee
+    public SphereCollider portee;
+
+    public GameObject sphere_prefab;
+    private GameObject sphere_instance;
 	
 
     void Start()
     {
-
-		
 
         mouseOver = true;
 
@@ -59,6 +66,11 @@ public class Tour : MonoBehaviour {
 
         //On fait en sorte que la tour n'attaque pas immédiatement
         mode_attaque = false;
+
+        //On récupère la taille de la portée de la tour
+        portee = GetComponent<SphereCollider>();
+
+
     }
 
    
@@ -69,7 +81,7 @@ public class Tour : MonoBehaviour {
     void OnTriggerEnter(Collider ennemy)
     {
 
-        if(ennemy.tag=="ennemy")
+		if (ennemy.tag == "ennemy" || ennemy.tag == "boostaure")
         {
 
             //On ajoute l'ennemi qui est detecté dans la file d'attente de la tour
@@ -79,7 +91,7 @@ public class Tour : MonoBehaviour {
 
     void OnTriggerExit(Collider ennemy)
     {
-        if (ennemy.tag == "ennemy")
+		if (ennemy.tag == "ennemy" || ennemy.tag == "boostaure")
         {
             for (int i = 0; i < file.Count;i++ )
             {
@@ -115,6 +127,12 @@ public class Tour : MonoBehaviour {
                 //La tour tir un nouveau projectile
                 //Vector3 pos = new Vector3(transform.position.x + Random.Range(-1, 1), transform.position.y + Random.Range(1, 3), transform.position.z);
                 //Instantiate(prefab_tir, pos, transform.rotation);
+
+
+				if (IsPoison) { prefab_tir_script.IsPoison=true; }
+				if (IsGel) { prefab_tir_script.IsGel=true; }
+				if (IsRadiation) { prefab_tir_script.IsRadiation = true; }
+
                 Instantiate(prefab_tir, transform.position, transform.rotation);
 
                 //Maintenant on attend le couldown avant de relancer un projectile
@@ -161,7 +179,20 @@ public class Tour : MonoBehaviour {
 
         mode_attaque = false;            //On dit à la tour qu'elle peut prendre une nouvelle cible
     }
-   
+
+    public void survolTourOn()
+    {
+        Debug.Log("tour survolée");
+        sphere_instance = Instantiate(sphere_prefab);
+        sphere_instance.transform.position = this.transform.position;
+        sphere_instance.transform.localScale = new Vector3(this.transform.localScale.x * portee.radius *2, /*this.transform.localScale.x * portee.radius*2*/1, this.transform.localScale.x * portee.radius*2);
+    }
+
+    public void survolTourOut()
+    {
+        Destroy(sphere_instance);
+    }
+
 	// Update is called once per frame
 	void Update () 
     {
