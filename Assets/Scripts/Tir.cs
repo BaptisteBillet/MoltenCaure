@@ -167,7 +167,8 @@ public class Tir : MonoBehaviour {
 			SetDamage();
             Debug.Log("Explosion_canon");
         }
-
+        ParticleSystem PE_Hit = Instantiate(particule_Hit) as ParticleSystem;
+        PE_Hit.transform.position = transform.position;
         Destroy(this.gameObject); //on détruit cet objet, il n'a plus d'utilité
 		yield return null;
 
@@ -196,7 +197,7 @@ public class Tir : MonoBehaviour {
 				Destroy(this.gameObject);
 			}
 
-            transform.position = Vector3.Lerp(transform.position, cibleTirCanon, delay * Time.deltaTime * acceleration); // Celui ci se déplace vers une coordonnée mais pas vers un ennemis
+            transform.position = Vector3.MoveTowards(transform.position, cibleTirCanon, delay * Time.deltaTime * acceleration); // Celui ci se déplace vers une coordonnée mais pas vers un ennemis
             if (this.transform.position == cibleTirCanon && canon_explose==false) // Une fois le tir arrivé au coordonées
             {
                 canon_explose = true;
@@ -219,7 +220,7 @@ public class Tir : MonoBehaviour {
 				if (cible != null) //Si la cible existe 
 				{
 					//On se déplace vers la cible
-					transform.position = Vector3.Lerp(transform.position, cible.transform.position, delay * Time.deltaTime * acceleration);
+					transform.position = Vector3.MoveTowards(transform.position, cible.transform.position, delay * Time.deltaTime * acceleration);
 					//On la regarde en avançant
 					transform.LookAt(cible.transform);
 
