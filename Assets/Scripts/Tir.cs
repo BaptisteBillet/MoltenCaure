@@ -197,7 +197,7 @@ public class Tir : MonoBehaviour {
 				Destroy(this.gameObject);
 			}
 
-			transform.position = Vector3.MoveTowards(transform.position, cibleTirCanon, delay * Time.deltaTime * acceleration); // Celui ci se déplace vers une coordonnée mais pas vers un ennemis
+            transform.position = Vector3.MoveTowards(transform.position, cibleTirCanon, delay * Time.deltaTime * acceleration); // Celui ci se déplace vers une coordonnée mais pas vers un ennemis
             if (this.transform.position == cibleTirCanon && canon_explose==false) // Une fois le tir arrivé au coordonées
             {
                 canon_explose = true;

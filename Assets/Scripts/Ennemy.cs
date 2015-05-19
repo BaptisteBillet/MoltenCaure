@@ -43,7 +43,7 @@ public class Ennemy : MonoBehaviour {
 
 		degatPoison = 1;
 		timePoison = 10;
-		slowGel = 1;
+		slowGel = 20;
 		timeGel = 2;
 		timeRadiation = 10;
 

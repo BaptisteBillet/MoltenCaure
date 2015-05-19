@@ -45,6 +45,14 @@ public class Tour : MonoBehaviour {
 	public bool IsPoison;
 	public bool IsGel;
 	public bool IsRadiation;
+
+
+    //affichage portee
+    public SphereCollider portee;
+
+    public GameObject sphere_prefab;
+    private GameObject sphere_instance;
+
 	
 
     void Start()
@@ -60,6 +68,11 @@ public class Tour : MonoBehaviour {
 
         //On fait en sorte que la tour n'attaque pas immédiatement
         mode_attaque = false;
+
+        //On récupère la taille de la portée de la tour
+        portee = GetComponent<SphereCollider>();
+
+
     }
 
    
@@ -118,6 +131,15 @@ public class Tour : MonoBehaviour {
                 //Instantiate(prefab_tir, pos, transform.rotation);
 
 
+
+				if (IsPoison) { prefab_tir_script.IsPoison=true; }
+				if (IsGel) { prefab_tir_script.IsGel=true; }
+				if (IsRadiation) { prefab_tir_script.IsRadiation = true; }
+
+                Instantiate(prefab_tir, transform.position, transform.rotation);
+
+
+
 				
 
                 tir_instance=Instantiate(prefab_tir, transform.position, transform.rotation)as GameObject;
@@ -168,7 +190,20 @@ public class Tour : MonoBehaviour {
 
         mode_attaque = false;            //On dit à la tour qu'elle peut prendre une nouvelle cible
     }
-   
+
+    public void survolTourOn()
+    {
+        Debug.Log("tour survolée");
+        sphere_instance = Instantiate(sphere_prefab);
+        sphere_instance.transform.position = this.transform.position;
+        sphere_instance.transform.localScale = new Vector3(this.transform.localScale.x * portee.radius *2, /*this.transform.localScale.x * portee.radius*2*/1, this.transform.localScale.x * portee.radius*2);
+    }
+
+    public void survolTourOut()
+    {
+        Destroy(sphere_instance);
+    }
+
 	// Update is called once per frame
 	void Update () 
     {
