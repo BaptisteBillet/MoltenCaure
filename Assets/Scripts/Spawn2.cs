@@ -39,28 +39,48 @@ public class Spawn2 : MonoBehaviour {
 	[Header("Tweek Aleatoire")]
 	[Range(0, 100)]
 	public int minimum_Vague_Sprintaure;
-	 [Range(0, 100)]
+	[Range(0, 100)]
 	public int maximum_Vague_Sprintaure;
+	[Range(0, 100)]
+	public int add_Minimum_Vague_Sprintaure;
+	[Range(0, 100)]
+	public int add_Maximum_Vague_Sprintaure;
 	[Space(10)]
 	[Range(0, 100)]
 	public int minimum_Vague_Standard;
 	 [Range(0, 100)]
 	public int maximum_Vague_Standard;
+	[Range(0, 100)]
+	 public int add_Minimum_Vague_Standard;
+	[Range(0, 100)]
+	public int add_Maximum_Vague_Standard;
 	[Space(10)]
 	[Range(0, 100)]
 	public int minimum_Vague_Boostaure;
 	 [Range(0, 100)]
 	public int maximum_Vague_Boostaure;
+	[Range(0, 100)]
+	public int add_Minimum_Vague_Boostaure;
+	[Range(0, 100)]
+	public int add_Maximum_Vague_Boostaure;
 	[Space(10)]
 	[Range(0, 100)]
 	public int minimum_Vague_Gropaure;
 	 [Range(0, 100)]
 	public int maximum_Vague_Gropaure;
+	[Range(0, 100)]
+	public int add_Minimum_Vague_Gropaure;
+	[Range(0, 100)]
+	public int add_Maximum_Vague_Gropaure;
 	[Space(10)]
 	[Range(0, 100)]
 	public int minimum_Vague_Mordaure;
 	[Range(0, 100)]
 	public int maximum_Vague_Mordaure;
+	[Range(0, 100)]
+	public int add_Minimum_Vague_Mordaure;
+	[Range(0, 100)]
+	public int add_Maximum_Vague_Mordaure;
 	[Space(20)]
 	public List<GameObject> vague;
 	public int level;
@@ -128,6 +148,8 @@ public class Spawn2 : MonoBehaviour {
 			if(Random.Range(vague_alea_Standard, maximum_Vague_Standard)>=maximum_Vague_Standard)
 			{
 				vague_Standard++;
+				minimum_Vague_Standard += add_Minimum_Vague_Standard;
+				maximum_Vague_Standard += add_Maximum_Vague_Standard;
 				vague_alea_Standard = 0;
 			}
 			else
@@ -139,6 +161,7 @@ public class Spawn2 : MonoBehaviour {
 		{
 			vague_alea_Standard++;
 		}
+		//
 		if (vague_alea_Sprintaure >= minimum_Vague_Sprintaure && vague_alea_Sprintaure <= maximum_Vague_Sprintaure)
 		{
 			Debug.Log("a");
@@ -146,6 +169,8 @@ public class Spawn2 : MonoBehaviour {
 			{
 				vague_Sprintaure++;
 				vague_alea_Sprintaure = 0;
+				minimum_Vague_Sprintaure += add_Minimum_Vague_Sprintaure;
+				maximum_Vague_Sprintaure += add_Maximum_Vague_Sprintaure;
 			}
 			else
 			{
@@ -156,12 +181,15 @@ public class Spawn2 : MonoBehaviour {
 		{
 			vague_alea_Sprintaure++;
 		}
+		//
 		if (vague_alea_Boostaure >= minimum_Vague_Boostaure && vague_alea_Boostaure <= maximum_Vague_Boostaure)
 		{
 			if (Random.Range(vague_alea_Boostaure, maximum_Vague_Boostaure) >= maximum_Vague_Boostaure)
 			{
 				vague_Boostaure++;
 				vague_alea_Boostaure = 0;
+				minimum_Vague_Boostaure += add_Minimum_Vague_Boostaure;
+				maximum_Vague_Boostaure += add_Maximum_Vague_Boostaure;
 			}
 			else
 			{
@@ -172,12 +200,15 @@ public class Spawn2 : MonoBehaviour {
 		{
 			vague_alea_Boostaure++;
 		}
+		//
 		if (vague_alea_Gropaure >= minimum_Vague_Gropaure && vague_alea_Gropaure <= maximum_Vague_Gropaure)
 		{
 			if (Random.Range(vague_alea_Gropaure, maximum_Vague_Gropaure) >= maximum_Vague_Gropaure)
 			{
 				vague_Gropaure++;
 				vague_alea_Gropaure = 0;
+				minimum_Vague_Gropaure += add_Minimum_Vague_Gropaure;
+				maximum_Vague_Gropaure += add_Maximum_Vague_Gropaure;
 			}
 			else
 			{
@@ -188,12 +219,15 @@ public class Spawn2 : MonoBehaviour {
 		{
 			vague_alea_Gropaure++;
 		}
+		//
 		if (vague_alea_Mordaure >= minimum_Vague_Mordaure && vague_alea_Mordaure <= maximum_Vague_Mordaure)
 		{
 			if (Random.Range(vague_alea_Mordaure, maximum_Vague_Mordaure) >= maximum_Vague_Mordaure)
 			{
 				vague_Mordaure++;
 				vague_alea_Mordaure = 0;
+				minimum_Vague_Mordaure += add_Minimum_Vague_Mordaure;
+				maximum_Vague_Mordaure += add_Maximum_Vague_Mordaure;
 			}
 			else
 			{
@@ -238,6 +272,7 @@ public class Spawn2 : MonoBehaviour {
 
 	public void launchNextWave()
 	{
+		Artefact_Script.instance.GainY((int)timeBeforeNextWave);
 		timeBeforeNextWave = 0;
 	}
 	
