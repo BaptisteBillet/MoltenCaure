@@ -61,27 +61,45 @@ public class Place : MonoBehaviour {
         mouseOver = true;
         fusionné = false;
         couleur = gameObject.GetComponent<Renderer>().material.color;
-        couleur.a = 0.05f;
+        couleur.a = 0.3f;
         material.color = couleur;
     }
 
-    void OnMouseOver()
+    public void OnSurvolTourOn()
+    {
+        if (/*mouseOver == true &&*/ libre == true)
+        {
+            //Debug.Log(xRow + " " + yCol + " " + libre);
+            couleur.a = 0.7f;
+            material.color = couleur;
+            //mouseOver = false;
+        }
+    }
+
+    /*void OnMouseOver()
     {
         if (mouseOver == true && libre == true)
         {
             //Debug.Log(xRow + " " + yCol + " " + libre);
-            couleur.a = 0.3f;
+            couleur.a = 0.7f;
             material.color = couleur;
             mouseOver = false;
         }
-    }
+    }*/
 
-    void OnMouseExit()
+    public void OnSurvolTourOut()
     {
-        mouseOver = true;
-        couleur.a = 0.05f;
+        //mouseOver = true;
+        couleur.a = 0.3f;
         material.color = couleur;
     }
+    
+    /*void OnMouseExit()
+    {
+        mouseOver = true;
+        couleur.a = 0.3f;
+        material.color = couleur;
+    }*/
 
 
     int check_nearly(int dir, int i, int j)

@@ -25,17 +25,19 @@ public class Pose_tour : MonoBehaviour
 
     public void quitter()
     {
+        SoundManagerEvent.emit(SoundManagerType.INTERFACE, null);
         place_touch.GetComponent<Place>().libre = true;
         this.gameObject.SetActive(false);
     }
 
     public void sniper()            //Se produit lorsqu'on clique sur le bouton de pose de tour Sniper
     {
+        SoundManagerEvent.emit(SoundManagerType.INTERFACE, null);
         if (Artefact_Script.instance.X >= coutSniper)
         {
             Artefact_Script.instance.DepenseX(coutSniper);     //On enlève le coût de la Tour au total de X qu'a le joueur
             createTourSniper(1);        //On lance la fonction de création de tour Sniper de niveau 1
-            Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
+            //Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
         }
     }
 
@@ -68,6 +70,7 @@ public class Pose_tour : MonoBehaviour
 
     public void rafale()            //Se produit lorsqu'on clique sur le bouton de pose de tour Rafale
     {
+        SoundManagerEvent.emit(SoundManagerType.INTERFACE, null);
         if (Artefact_Script.instance.X >= coutRafale)      //On vérifie si le joueur a suffisamment de X pour créer une tour
         {
             Artefact_Script.instance.DepenseX(coutRafale);     //On enlève le coût de la Tour au total de X qu'a le joueur
@@ -111,11 +114,12 @@ public class Pose_tour : MonoBehaviour
 
     public void canon()
     {
+        SoundManagerEvent.emit(SoundManagerType.INTERFACE, null);
         if (Artefact_Script.instance.X >= coutCanon)      //On vérifie si le joueur a suffisamment de X pour créer une tour
         {
             Artefact_Script.instance.DepenseX(coutCanon);     //On enlève le coût de la Tour au total de X qu'a le joueur
             createTourCanon(1);        //On lance la fonction de création de tour Canon de niveau 1
-            Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
+            //Destroy(this.gameObject);   //On détruit l'interface du menu car la tour est en cours de création
         }
     }
 
@@ -160,6 +164,7 @@ public class Pose_tour : MonoBehaviour
                 if (tour.place_tour != null)
                 {
                     tour.place_tour.GetComponent<Place>().libre = true;	   //La place sur laquelle était posée la tour redevient vide
+                    SoundManagerEvent.emit(SoundManagerType.FUSION, null);
                 }
 
 
@@ -266,6 +271,7 @@ public class Pose_tour : MonoBehaviour
                 if (tour.place_tour != null)
                 {
                     tour.place_tour.GetComponent<Place>().libre = true;	   //La place sur laquelle était posée la tour redevient vide
+                    SoundManagerEvent.emit(SoundManagerType.FUSION, null);
                 }
                 DestroyImmediate(tour.gameObject);      //On détruit immédiatement (pour ne pas gêner la détection des autres tours) chaque tour trouvée lors du test de fusion
             }
@@ -341,6 +347,7 @@ public class Pose_tour : MonoBehaviour
 
     public void createTourL()         //Cette fonction permet de créer une tour L d'un niveau dépendant de s'il y a eu une fusion avant son exécution ou non.
     {
+        SoundManagerEvent.emit(SoundManagerType.FUSION, null);
         Debug.Log("fusion IMBA");
         cible_script = (MainCanvas)transform.parent.gameObject.GetComponent(typeof(MainCanvas));
         GameObject nouvelleTour_L = Instantiate(tour_L) as GameObject;       //On crée la tour L contenue dans le tableau à la case level-1 (pour correspondre au tableau qui commence à 0)

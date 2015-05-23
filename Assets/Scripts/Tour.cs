@@ -52,8 +52,9 @@ public class Tour : MonoBehaviour {
 
     public GameObject sphere_prefab;
     private GameObject sphere_instance;
+    public ParticleSystem particulePortee;
+    private GameObject particle_portee_instance;
 
-	
 
     void Start()
     {
@@ -137,7 +138,19 @@ public class Tour : MonoBehaviour {
 				if (IsRadiation) { prefab_tir_script.IsRadiation = true; }
 
                 Instantiate(prefab_tir, transform.position, transform.rotation);
+                switch(type)
+                {
+                    case "rafale":
+                        SoundManagerEvent.emit(SoundManagerType.RAFALE,this.gameObject);
+                        break;
+                    case "sniper":
+                        SoundManagerEvent.emit(SoundManagerType.SNIPER, this.gameObject);
+                        break;
+                    case "canon":
+                        SoundManagerEvent.emit(SoundManagerType.CANON, this.gameObject);
+                        break;
 
+                }
 
 
 				
@@ -197,6 +210,9 @@ public class Tour : MonoBehaviour {
         sphere_instance = Instantiate(sphere_prefab);
         sphere_instance.transform.position = this.transform.position;
         sphere_instance.transform.localScale = new Vector3(this.transform.localScale.x * portee.radius *2, /*this.transform.localScale.x * portee.radius*2*/1, this.transform.localScale.x * portee.radius*2);
+        /*ParticleSystem particle_portee_instance = Instantiate(particulePortee) as ParticleSystem;
+        particle_portee_instance.transform.position = this.transform.position;
+        particle_portee_instance.transform.localScale = new Vector3(this.transform.localScale.x * portee.radius * 2, /*this.transform.localScale.x * portee.radius*2*//*1, this.transform.localScale.x * portee.radius * 2);*/
     }
 
     public void survolTourOut()

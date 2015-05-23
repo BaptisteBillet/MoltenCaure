@@ -36,6 +36,8 @@ public class Ennemy : MonoBehaviour {
 	public int timeGel=2;
 	public int timeRadiation=10;
 
+    public int gainMortX;
+
 
 
 	public virtual void Start()     //Virtual permet à la fonction d'être appelée par ses enfants
@@ -59,6 +61,7 @@ public class Ennemy : MonoBehaviour {
         if(vie<=0)
         {
             RessourcesManager.ressourceX++;
+            Artefact_Script.instance.GainX(gainMortX);
             Destroy(this.gameObject);
         }
 

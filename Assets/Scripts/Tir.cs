@@ -163,9 +163,12 @@ public class Tir : MonoBehaviour {
         //yield return new WaitForSeconds(temps_explosion_canon);
         for (int i = 0; i < file.Count; i++) // Pour chaque ennemis dans la liste, lui infligé les dégats du tir
         {
-            cible_script = file[i].GetComponent<Ennemy>();
-			SetDamage();
-            Debug.Log("Explosion_canon");
+            if (cible.gameObject != null)
+            {
+                cible_script = file[i].GetComponent<Ennemy>();
+                SetDamage();
+                Debug.Log("Explosion_canon");
+            }
         }
         ParticleSystem PE_Hit = Instantiate(particule_Hit) as ParticleSystem;
         PE_Hit.transform.position = transform.position;

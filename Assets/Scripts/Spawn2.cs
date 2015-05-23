@@ -14,6 +14,9 @@ public class Spawn2 : MonoBehaviour {
 	public float timeBeforeNextWave;
 	public float starttimeBeforeNextWave;
 	public float minTimeBeforeNextWave;
+    public float timeLeft;
+
+    public Text text_timer_before_wave;
 
 	// destination 
 	[Header("NavMesh")]
@@ -118,6 +121,11 @@ public class Spawn2 : MonoBehaviour {
 		ConstructNexWave();
 	}
 
+    void Update()
+    {
+        text_timer_before_wave.text = "Next Wave in " + ((int)Mathf.Round(timeBeforeNextWave)).ToString() + " sec";
+    }
+
 	IEnumerator waitForWave()
 	{
 		while(true)
@@ -127,12 +135,12 @@ public class Spawn2 : MonoBehaviour {
 				yield return new WaitForSeconds(0.2f);
 				timeBeforeNextWave-=0.2f;
 			}
-			starttimeBeforeNextWave--;
+            starttimeBeforeNextWave -= timeLeft;
 			if (starttimeBeforeNextWave < minTimeBeforeNextWave)
 			{
 				starttimeBeforeNextWave = minTimeBeforeNextWave;
 			}
-			timeBeforeNextWave = starttimeBeforeNextWave;
+            timeBeforeNextWave = starttimeBeforeNextWave;
 			level++;
 			ConstructNexWave();
 		}

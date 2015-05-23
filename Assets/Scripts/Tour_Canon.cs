@@ -11,5 +11,6 @@ public class Tour_Canon : Tour
         //Le mode_attaque devrait toujours être en false
         mode_attaque = false;
         aoe = false;
+        type = "canon";
     }
 }
