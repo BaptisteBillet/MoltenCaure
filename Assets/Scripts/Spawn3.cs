@@ -22,6 +22,9 @@ public class Spawn3 : MonoBehaviour {
 	public Transform destiRetour = null;
 
     public Text text_timer_before_wave;
+    public Text text_launch_next_wave;
+    public float m_TimeBetweenSpawn;
+    private bool m_IsCoroutineLaunch;
 
 	private GameObject spawner;
 
@@ -99,6 +102,7 @@ public class Spawn3 : MonoBehaviour {
 	private int vague_alea_Gropaure;
 	private int vague_alea_Mordaure;
 
+   
 
 
 	// Use this for initialization
@@ -122,6 +126,7 @@ public class Spawn3 : MonoBehaviour {
     public void Update()
     {
         text_timer_before_wave.text = "Next Wave in " + ((int)Mathf.Round(timeBeforeNextWave)).ToString() + " sec";
+        text_launch_next_wave.text = (level + 1).ToString();
     }
 
 	public void LetsStart()
@@ -160,13 +165,18 @@ public class Spawn3 : MonoBehaviour {
 				starttimeBeforeNextWave = minTimeBeforeNextWave;
 			}
 			timeBeforeNextWave = starttimeBeforeNextWave;
-			level++;
-			ConstructNexWave();
+            if (m_IsCoroutineLaunch == false)
+            {
+                level++;
+                Debug.Log(level);
+                ConstructNexWave();
+            }
 		}
 	}
 
 	void ConstructNexWave()
 	{
+        
 		vague.Clear();
 
 		if (level > 4)
@@ -311,35 +321,41 @@ public class Spawn3 : MonoBehaviour {
 		
 		
 		
-		NextWave();
+		StartCoroutine(NextWave());
 	}
+
+    IEnumerator NextWave()
+    {
+        
+        SoundManagerEvent.emit(SoundManagerType.NEWWAVE, null);
+        GameObject spawner = null;
+
+        spawner = null;
+        foreach (GameObject go in vague)
+        {
+            spawner = (GameObject)Instantiate(go, transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(m_TimeBetweenSpawn);
+            //On attribue le navmesh à l'ennemi créé
+            NavMeshAgent nav_ennemy = spawner.GetComponent<NavMeshAgent>();
+            nav_ennemy.destination = destination.position;
+
+            spawner.GetComponent<Ennemy>().start = this.transform.position;
+        }
+
+       
+        m_IsCoroutineLaunch = false;
+    }
+
 	
-
-	void NextWave()
-	{
-
-        SoundManagerEvent.emit(SoundManagerType.NEWWAVE,null);
-		GameObject spawner = null;
-
-		spawner = null;
-		foreach(GameObject go in vague)
-		{
-			spawner = (GameObject)Instantiate(go, transform.position, Quaternion.identity);
-		}
-
-		//On attribue le navmesh à l'ennemi créé
-		NavMeshAgent nav_ennemy = spawner.GetComponent<NavMeshAgent>();
-		nav_ennemy.destination = destination.position;
-		
-		spawner.GetComponent<Ennemy>().start = this.transform.position;
-	}
-
-
 	public void launchNextWave()
 	{
-        SoundManagerEvent.emit(SoundManagerType.INTERFACE, null);
-		Artefact_Script.instance.GainY((int)timeBeforeNextWave);
-		timeBeforeNextWave = 0;
+        if (m_IsCoroutineLaunch == false)
+        {
+            m_IsCoroutineLaunch = true;
+            SoundManagerEvent.emit(SoundManagerType.INTERFACE, null);
+            Artefact_Script.instance.GainY((int)timeBeforeNextWave);
+            timeBeforeNextWave = 0;
+        }
 	}
 	
 
