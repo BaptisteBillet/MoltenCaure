@@ -3,18 +3,19 @@ using System.Collections;
 
 public class LoadNewScene : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 
     public void LoadNextScene ()
     {
-        Application.LoadLevel("Game");
+        Application.LoadLevel("Game_Antonin_v2");
+    }
+    public void Menu()
+    {
+        Application.LoadLevel("Menu_principal");
+    }
+
+    public void Quitter()
+    {
+        Application.Quit();
     }
 }

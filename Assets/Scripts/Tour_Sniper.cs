@@ -10,5 +10,6 @@ public class Tour_Sniper : Tour
         //Le mode_attaque devrait toujours être en false
         mode_attaque = false;
         aoe = false;
+        type = "sniper";
     }
 }
